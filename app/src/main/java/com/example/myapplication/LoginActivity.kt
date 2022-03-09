@@ -18,8 +18,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
-        binding.tvDontHaveRegister.setOnClickListener{
-            startActivity(Intent(this@LoginActivity,RegisterActivity::class.java))
+        binding.tvDontHaveRegister.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
         }
         binding.btnLogin.setOnClickListener {
             when {
@@ -57,7 +57,10 @@ class LoginActivity : AppCompatActivity() {
                                         Intent(this@LoginActivity, MainActivity::class.java)
                                     intent.flags =
                                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                    intent.putExtra("user_id", FirebaseAuth.getInstance().currentUser!!.uid)
+                                    intent.putExtra(
+                                        "user_id",
+                                        FirebaseAuth.getInstance().currentUser!!.uid
+                                    )
                                     intent.putExtra("email_id", email)
                                     startActivity(intent)
                                     finish()

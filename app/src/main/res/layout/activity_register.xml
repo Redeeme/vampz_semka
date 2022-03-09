@@ -28,7 +28,9 @@
         android:text="Register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_header_image"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/register_header_image">
+
+    </TextView>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_register_email"
