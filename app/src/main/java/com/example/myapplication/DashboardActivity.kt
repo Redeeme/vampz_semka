@@ -20,11 +20,8 @@ class DashboardActivity : AppCompatActivity() {
             finish()
         }
         binding.btnShop.setOnClickListener{
-            Toast.makeText(
-                this@DashboardActivity,
-                "Redirected to shop :)",
-                Toast.LENGTH_SHORT
-            ).show()
+            startActivity(Intent(this@DashboardActivity,ShopActivity::class.java))
+            finish()
         }
         binding.btnAbout.setOnClickListener{
             Toast.makeText(

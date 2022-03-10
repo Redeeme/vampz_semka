@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         Handler().postDelayed({
-            startActivity(Intent(this@MainActivity,DashboardActivity::class.java))
+            startActivity(Intent(this@MainActivity,ShopActivity::class.java))
         }, 3000)
     }
 }
