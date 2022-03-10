@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.Adapter.ProductAdapter
 import com.example.myapplication.Model.ProductModelClass
 import com.example.myapplication.databinding.ActivityShopBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class ShopActivity : AppCompatActivity() {
@@ -23,6 +25,23 @@ class ShopActivity : AppCompatActivity() {
         binding.rvProductList.layoutManager = LinearLayoutManager(this)
         val itemAdapter = ProductAdapter(this,loadData())
         binding.rvProductList.adapter = itemAdapter
+        itemAdapter.setOnItemClickListener(object : ProductAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                Toast.makeText(
+                    this@ShopActivity,
+                    "cum :)",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        })
+
+
+
+
+        val db= FirebaseFirestore.getInstance()
+
+
         binding.btnLogout.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(this@ShopActivity,LoginActivity::class.java))
@@ -32,20 +51,11 @@ class ShopActivity : AppCompatActivity() {
             startActivity(Intent(this@ShopActivity,ShopActivity::class.java))
             finish()
         }
-        binding.btnAddToCart.setOnClickListener{
-            Toast.makeText(
-                    this@ShopActivity,
-                    "Redirected to About page :)",
-                    Toast.LENGTH_SHORT
-            ).show()
-        }
         binding.btnShoppingCart.setOnClickListener{
-            Toast.makeText(
-                    this@ShopActivity,
-                    "Redirected to shopping cart :)",
-                    Toast.LENGTH_SHORT
-            ).show()
+            startActivity(Intent(this@ShopActivity,CartActivity::class.java))
+            finish()
         }
+
     }
     private fun loadData(): ArrayList<ProductModelClass>{
         val productList: ArrayList<ProductModelClass> = ArrayList()
