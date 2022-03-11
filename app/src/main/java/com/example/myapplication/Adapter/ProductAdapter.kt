@@ -28,7 +28,7 @@ class ProductAdapter(private val context: Context, val list: ArrayList<ProductMo
         holder.tvProductOrigin.text = itemsViewModel.productOrigin
         holder.ivProductImage.setImageResource(itemsViewModel.productImage)
         holder.tvProductPrice.text = itemsViewModel.productPrice.toString() + " €/kg"
-        holder.tvCount.text = "${itemsViewModel.amount}"
+        holder.tvCount.text = "${itemsViewModel.productAmount}"
         holder.ivSub.setOnClickListener{
             itemClickListener.minus(list[position],position)
         }
@@ -38,9 +38,6 @@ class ProductAdapter(private val context: Context, val list: ArrayList<ProductMo
         holder.ivAddToCart.setOnClickListener{
             itemClickListener.addToCart(list[position],position)
         }
-
-
-
     }
     override fun getItemCount(): Int {
         return list.size

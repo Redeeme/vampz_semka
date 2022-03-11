@@ -6,5 +6,5 @@ class ProductModelClass (
         val productClass: String,
         val productImage: Int,
         val productPrice: Double,
-        var amount: Int
+        var productAmount: Int
 )

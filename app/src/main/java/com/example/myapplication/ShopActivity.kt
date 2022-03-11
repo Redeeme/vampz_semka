@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,12 +10,14 @@ import com.example.myapplication.Adapter.ProductAdapter
 import com.example.myapplication.Model.ProductModelClass
 import com.example.myapplication.databinding.ActivityShopBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class ShopActivity : AppCompatActivity(),IItemClickListener {
 
     private lateinit var binding: ActivityShopBinding
     private lateinit var itemAdapter: ProductAdapter
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +27,7 @@ class ShopActivity : AppCompatActivity(),IItemClickListener {
         binding.rvProductList.layoutManager = LinearLayoutManager(this)
         itemAdapter = ProductAdapter(this, loadData(), this@ShopActivity)
         binding.rvProductList.adapter = itemAdapter
-
+        db= FirebaseFirestore.getInstance()
 
         binding.btnLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
@@ -39,22 +42,48 @@ class ShopActivity : AppCompatActivity(),IItemClickListener {
             startActivity(Intent(this@ShopActivity, CartActivity::class.java))
             finish()
         }
+
     }
-    override fun minus(productModelClass: ProductModelClass, position: Int) {
-        if (productModelClass.amount>0){
-            productModelClass.amount--
+    override fun minus(product: ProductModelClass, position: Int) {
+        if (product.productAmount>0){
+            product.productAmount--
             itemAdapter.notifyItemChanged(position)
         }
     }
 
-    override fun addToCart(productModelClass: ProductModelClass, position: Int) {
-        TODO("Not yet implemented")
+    override fun addToCart(product: ProductModelClass, position: Int) {
+        //db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document("apple")
+        val doc = db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document("apple")
+        doc.get()
+                .addOnSuccessListener { document ->
+                    if (document.data != null) {
+                        //var amount = document.data!!["productAmount"]
+                        Log.d("j", "No such document${document.data!!["productAmount"]}")
+                    } else {
+                        //Log.d("j", "No such document")
+                        val data = hashMapOf(
+                                "productName" to product.productName,
+                                "productOrigin" to product.productOrigin,
+                                "productClass" to product.productClass,
+                                "productImage" to product.productImage,
+                                "productPrice" to product.productPrice,
+                                "productAmount" to product.productAmount
+                        )
+                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName).set(data)
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("j", "get failed with ", exception)
+                }
     }
 
-    override fun add(productModelClass: ProductModelClass, position: Int) {
-        productModelClass.amount++
+    override fun add(product: ProductModelClass, position: Int) {
+        product.productAmount++
         itemAdapter.notifyItemChanged(position)
     }
+
+
+
 
     private fun loadData(): ArrayList<ProductModelClass> {
         val productList: ArrayList<ProductModelClass> = ArrayList()
