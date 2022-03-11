@@ -54,7 +54,7 @@
         android:layout_marginEnd="108dp"
         android:text="price: "
 
-        app:layout_constraintBottom_toTopOf="@+id/et_add_to_cart"
+        app:layout_constraintBottom_toTopOf="@+id/tv_add_to_cart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -66,7 +66,7 @@
         android:text="0"
 
 
-        app:layout_constraintBottom_toTopOf="@+id/et_add_to_cart"
+        app:layout_constraintBottom_toTopOf="@+id/tv_add_to_cart"
         app:layout_constraintStart_toEndOf="@+id/et_price"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,7 +89,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/et_add_to_cart"
+        android:id="@+id/tv_add_to_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="add to cart: "
@@ -101,32 +101,52 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.509" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_buy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="kg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/et_add_to_cart"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.818">
 
-        <EditText
-            android:id="@+id/et_user_buy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            tools:text="" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageButton
-        android:id="@+id/btn_add_to_cart"
+    <ImageView
+        android:id="@+id/iv_add_to_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_add_shopping_cart_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/til_buy"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.804"
+        app:layout_constraintStart_toEndOf="@+id/tv_add_to_cart"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.523" />
+
+    <TextView
+        android:id="@+id/id_productAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="20dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/tv_add_to_cart"
+        app:layout_constraintVertical_bias="0.375" />
+
+    <ImageView
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_baseline_exposure_plus_1_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.164"
+        app:layout_constraintStart_toEndOf="@+id/id_productAmount" />
+
+    <ImageView
+        android:id="@+id/sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_baseline_exposure_neg_1_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/id_productAmount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
