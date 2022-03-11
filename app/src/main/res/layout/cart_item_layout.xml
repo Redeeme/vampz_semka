@@ -5,7 +5,8 @@
     android:id="@+id/item_product_layout"
     android:layout_width="match_parent"
     android:layout_height="89dp"
-    android:background="@drawable/border_item">
+    android:background="@drawable/border_item"
+    android:layout_marginBottom="2dp">
 
     <ImageView
         android:id="@+id/imageView"
@@ -106,7 +107,7 @@
         android:id="@+id/iv_add_to_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_add_shopping_cart_24"
+        android:src="@drawable/ic_baseline_delete_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.804"
@@ -123,10 +124,10 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/tv_add_to_cart"
-        app:layout_constraintVertical_bias="0.375" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/add"

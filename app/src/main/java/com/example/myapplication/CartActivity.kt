@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,6 +32,19 @@ class CartActivity : AppCompatActivity() {
         itemAdapter = CartItemAdapter(cartItemList)
         binding.rvProductList.adapter = itemAdapter
         loadData()
+        binding.btnLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            startActivity(Intent(this@CartActivity, LoginActivity::class.java))
+            finish()
+        }
+        binding.btnShop.setOnClickListener {
+            startActivity(Intent(this@CartActivity, ShopActivity::class.java))
+            finish()
+        }
+        binding.btnShoppingCart.setOnClickListener {
+            startActivity(Intent(this@CartActivity, CartActivity::class.java))
+            finish()
+        }
 
     }
 
