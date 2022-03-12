@@ -21,22 +21,23 @@
             android:id="@+id/btn_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="Logout"></Button>
-
+            android:text="Logout"
+            android:backgroundTint="@color/purple_700"
+            android:textColor="@color/white"/>
         <Button
             android:id="@+id/btn_shop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="Shop"></Button>
-
+            android:text="Shop"
+            android:backgroundTint="@color/purple_700"
+            android:textColor="@color/white"/>
         <Button
             android:id="@+id/btn_shopping_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="Cart"></Button>
+            android:text="Cart"
+            android:backgroundTint="@color/purple_700"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 

@@ -46,6 +46,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_user_email"
-        android:text="Logout"></Button>
+        android:text="Logout"
+        android:backgroundTint="@color/purple_700"
+        android:textColor="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

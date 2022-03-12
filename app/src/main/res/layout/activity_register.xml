@@ -19,7 +19,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.283">
+        app:layout_constraintVertical_bias="0.283"
+        android:textSize="25dp"
+        android:textStyle="bold">
 
     </TextView>
 
@@ -64,7 +66,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_register_password"
-        android:text="register"/>
+        android:text="register"
+        android:backgroundTint="@color/purple_700"
+        android:textColor="@color/white"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -78,7 +82,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/tv_dont_have_account"
-            android:text="Already have account?">
+            android:text="Already have account?"
+            android:textSize="15dp">
         </TextView>
 
         <TextView
@@ -86,7 +91,8 @@
             android:layout_height="match_parent"
             android:id="@+id/tv_have_login"
             android:text="  Login"
-            android:textStyle="bold">
+            android:textStyle="bold"
+            android:textSize="15dp">
         </TextView>
     </LinearLayout>
 
