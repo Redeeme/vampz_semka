@@ -36,7 +36,7 @@ class ProductAdapter(private val context: Context, val list: ArrayList<ProductMo
             itemClickListener.add(list[position],position)
         }
         holder.ivAddToCart.setOnClickListener{
-            itemClickListener.addToCart(list[position],position)
+            itemClickListener.cartButton(list[position],position)
         }
     }
     override fun getItemCount(): Int {

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import com.example.myapplication.databinding.ActivityCartBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
-class CartActivity : AppCompatActivity() {
+class CartActivity : AppCompatActivity(), IItemClickListener {
     lateinit var binding: ActivityCartBinding
     private lateinit var db: FirebaseFirestore
     lateinit var itemAdapter: CartItemAdapter
@@ -29,7 +30,7 @@ class CartActivity : AppCompatActivity() {
         binding.rvProductList.layoutManager = LinearLayoutManager(this)
         binding.rvProductList.setHasFixedSize(true)
         cartItemList = ArrayList()
-        itemAdapter = CartItemAdapter(cartItemList)
+        itemAdapter = CartItemAdapter(cartItemList, this@CartActivity)
         binding.rvProductList.adapter = itemAdapter
         loadData()
         binding.btnLogout.setOnClickListener {
@@ -45,56 +46,85 @@ class CartActivity : AppCompatActivity() {
             startActivity(Intent(this@CartActivity, CartActivity::class.java))
             finish()
         }
+        binding.btnCheckout.setOnClickListener {
+            checkout()
+        }
+
+    }
+
+    private fun checkout() {
+        db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        var key: String = (document.data.getValue("productName").toString())
+                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(key).delete()
+
+                    }
+                }
+        cartItemList.clear()
+        itemAdapter.notifyDataSetChanged()
+        setData()
+        Toast.makeText(
+                this@CartActivity,
+                "Order has been sent.",
+                Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun setData() {
+        var money: Double = 0.0
+        var weight: Int = 0
+        for (item in cartItemList) {
+            money += (item.productAmount * item.productPrice!!)
+            weight += item.productAmount
+        }
+        binding.tvMoneySum.text = money.toString() + " €"
+        binding.tvWeightSum.text = weight.toString() +" kg"
 
     }
 
     private fun loadData() {
-        db= FirebaseFirestore.getInstance()
+        db = FirebaseFirestore.getInstance()
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid).addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                if (error != null){
-                    Log.e("Firestore",error.message.toString())
+                if (error != null) {
+                    Log.e("Firestore", error.message.toString())
                     return
                 }
-                for (dc: DocumentChange in value?.documentChanges!!){
-                    if (dc.type == DocumentChange.Type.ADDED){
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
                         cartItemList.add(dc.document.toObject(ProductModelClass::class.java))
                     }
                 }
                 itemAdapter.notifyDataSetChanged()
+                setData()
             }
 
         })
+    }
 
+    override fun minus(product: ProductModelClass, position: Int) {
+        if (product.productAmount > 0) {
+            product.productAmount--
+            itemAdapter.notifyItemChanged(position)
+            db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).update("productAmount", product.productAmount)
+        }
+    }
 
+    override fun cartButton(product: ProductModelClass, position: Int) {
+        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!)
+                .delete()
+                .addOnSuccessListener { Log.d("firestore", "DocumentSnapshot successfully deleted!") }
+                .addOnSuccessListener { Log.w("firestore", "Error deleting document") }
+        cartItemList.removeAt(position)
+        itemAdapter.notifyDataSetChanged()
+        setData()
+    }
 
-
-
-        /*db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
-                .get().addOnSuccessListener{result->
-                    var i:Int = 0
-
-                    for(document in result){
-                        Log.d(null,"${document.id}=>${document.data} + ${i}")
-                        var pi: Long = document.data.getValue("productImage") as Long
-                        var pp: Double = document.data.getValue("productPrice") as Double
-                        var pa: Long = document.data.getValue("productAmount") as Long
-                        cartItemList.add(ProductModelClass(
-                                document.data.getValue("productName") as String,
-                                document.data.getValue("productOrigin") as String,
-                                document.data.getValue("productClass") as String,
-                                pi.toInt(),
-                                pp,
-                                pa.toInt()
-                        ))
-
-                    }
-                }
-        cartItemList.add(ProductModelClass("Apples", "Kazakhstan", "f", R.drawable.f_apples, 2.0, 0))
-        cartItemList.add(ProductModelClass("Apricots", "Kazakhstan", "f", R.drawable.f_apricots, 2.5, 0))
-        cartItemList.add(ProductModelClass("Bananas", "Kazakhstan", "f", R.drawable.f_bananas, 3.0, 0))
-
-
-        return cartItemList*/
+    override fun add(product: ProductModelClass, position: Int) {
+        product.productAmount++
+        itemAdapter.notifyItemChanged(position)
+        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).update("productAmount", product.productAmount)
     }
 }

@@ -104,7 +104,7 @@
 
 
     <ImageView
-        android:id="@+id/iv_add_to_cart"
+        android:id="@+id/iv_delete_from_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_delete_24"
