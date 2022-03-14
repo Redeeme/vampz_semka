@@ -8,15 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.model.ProductModelClass
-import com.example.myapplication.shop.IItemClickListener
+import com.example.myapplication.shop.IProductClickListener
 
-class CartAdapter (val list: ArrayList<ProductModelClass>, val itemClickListener: IItemClickListener) :
+class CartAdapter (val list: ArrayList<ProductModelClass>, val itemClickListener: IProductClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.cart_item_layout, parent, false)
+            .inflate(R.layout.item_cart_layout, parent, false)
 
         return ViewHolder(view)
     }

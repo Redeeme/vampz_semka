@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.model.ProductModelClass
-import com.example.myapplication.shop.IItemClickListener
+import com.example.myapplication.shop.IProductClickListener
 
-class ShopAdapter(val list: ArrayList<ProductModelClass>, val itemClickListener: IItemClickListener) :
+class ShopAdapter(val list: ArrayList<ProductModelClass>, val itemClickListener: IProductClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

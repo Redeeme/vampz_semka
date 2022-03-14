@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.adapter.CartAdapter
+import com.example.myapplication.data.Order
 import com.example.myapplication.data.OrderViewModel
 import com.example.myapplication.databinding.FragmentCartBinding
 import com.example.myapplication.model.ProductModelClass
@@ -23,7 +24,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
-class CartFragment : Fragment(R.layout.fragment_cart), IItemClickListener {
+class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
     lateinit var binding: FragmentCartBinding
     private lateinit var db: FirebaseFirestore
     lateinit var itemAdapter: CartAdapter
@@ -55,9 +56,14 @@ class CartFragment : Fragment(R.layout.fragment_cart), IItemClickListener {
 
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         val formatted = current.format(formatter)
-
-        //var order = Order(0,FirebaseAuth.getInstance().currentUser!!.uid,formatted,cartItemList)
-
+        var price = 0.0
+        var items = 0
+        for (order in cartItemList){
+            price += order.productPrice!!
+            items++
+        }
+        var order = Order(0,FirebaseAuth.getInstance().currentUser!!.uid,formatted,price,items)//,cartItemList)
+        mOrderViewModel.addOrder(order)
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
             .get()
             .addOnSuccessListener { result ->

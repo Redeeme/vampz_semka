@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
-class ShopFragment : Fragment(R.layout.fragment_shop), IItemClickListener {
+class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
     private lateinit var binding: FragmentShopBinding
     private lateinit var itemAdapter: ShopAdapter
     private lateinit var db: FirebaseFirestore

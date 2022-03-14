@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_cartFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
@@ -37,6 +40,9 @@
         <action
             android:id="@+id/action_mainFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/shopFragment"
@@ -49,5 +55,29 @@
         <action
             android:id="@+id/action_shopFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_shopFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.myapplication.shop.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_purchasesFragment"
+            app:destination="@id/purchasesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/purchasesFragment"
+        android:name="com.example.myapplication.shop.PurchasesFragment"
+        android:label="PurchasesFragment" />
 </navigation>
