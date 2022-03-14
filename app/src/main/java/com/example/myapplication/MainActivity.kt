@@ -1,35 +1,21 @@
 package com.example.myapplication
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.databinding.ActivityMainBinding
-import com.google.firebase.auth.FirebaseAuth
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        val userId = intent.getStringExtra("user_id")
-        val emailId = intent.getStringExtra("email_id")
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        val navController = findNavController(R.id.nav_host)
+        bottomNav.setupWithNavController(navController)
 
-        binding.tvUserEmail.text = "User ID : $emailId"
-        binding.tvUserId.text = "User ID : $userId"
 
-        binding.btnLogout.setOnClickListener{
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(this@MainActivity,LoginActivity::class.java))
-            finish()
-        }
-        Handler().postDelayed({
-            startActivity(Intent(this@MainActivity,DashboardActivity::class.java))
-        }, 1000)
     }
 }

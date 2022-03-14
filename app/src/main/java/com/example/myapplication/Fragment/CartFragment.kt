@@ -1,74 +1,61 @@
-package com.example.myapplication
+package com.example.myapplication.Fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Adapter.CartItemAdapter
+import com.example.myapplication.IItemClickListener
 import com.example.myapplication.Model.ProductModelClass
-import com.example.myapplication.databinding.ActivityCartBinding
+import com.example.myapplication.R
+import com.example.myapplication.databinding.FragmentCartBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
-class CartActivity : AppCompatActivity(), IItemClickListener {
-    lateinit var binding: ActivityCartBinding
+
+class CartFragment : Fragment(R.layout.fragment_cart), IItemClickListener {
+    lateinit var binding: FragmentCartBinding
     private lateinit var db: FirebaseFirestore
     lateinit var itemAdapter: CartItemAdapter
     lateinit var cartItemList: ArrayList<ProductModelClass>
     lateinit var rvProductList: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityCartBinding.inflate(LayoutInflater.from(this))
-        setContentView(binding.root)
-
-
-        binding.rvProductList.layoutManager = LinearLayoutManager(this)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentCartBinding.inflate(inflater, container, false)
+        binding.rvProductList.layoutManager = LinearLayoutManager(context)
         binding.rvProductList.setHasFixedSize(true)
         cartItemList = ArrayList()
-        itemAdapter = CartItemAdapter(cartItemList, this@CartActivity)
+        itemAdapter = CartItemAdapter(cartItemList, this@CartFragment)
         binding.rvProductList.adapter = itemAdapter
         loadData()
-        binding.btnLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(this@CartActivity, LoginActivity::class.java))
-            finish()
-        }
-        binding.btnShop.setOnClickListener {
-            startActivity(Intent(this@CartActivity, ShopActivity::class.java))
-            finish()
-        }
-        binding.btnShoppingCart.setOnClickListener {
-            startActivity(Intent(this@CartActivity, CartActivity::class.java))
-            finish()
-        }
         binding.btnCheckout.setOnClickListener {
             checkout()
         }
 
+        return binding.root
     }
-
     private fun checkout() {
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        var key: String = (document.data.getValue("productName").toString())
-                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(key).delete()
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    var key: String = (document.data.getValue("productName").toString())
+                    db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(key).delete()
 
-                    }
                 }
+            }
         cartItemList.clear()
         itemAdapter.notifyDataSetChanged()
         setData()
         Toast.makeText(
-                this@CartActivity,
-                "Order has been sent.",
-                Toast.LENGTH_SHORT
+            context,
+            "Order has been sent.",
+            Toast.LENGTH_SHORT
         ).show()
     }
 
@@ -86,7 +73,8 @@ class CartActivity : AppCompatActivity(), IItemClickListener {
 
     private fun loadData() {
         db = FirebaseFirestore.getInstance()
-        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).addSnapshotListener(object : EventListener<QuerySnapshot> {
+        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).addSnapshotListener(object :
+            EventListener<QuerySnapshot> {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 if (error != null) {
                     Log.e("Firestore", error.message.toString())
@@ -114,9 +102,9 @@ class CartActivity : AppCompatActivity(), IItemClickListener {
 
     override fun cartButton(product: ProductModelClass, position: Int) {
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!)
-                .delete()
-                .addOnSuccessListener { Log.d("firestore", "DocumentSnapshot successfully deleted!") }
-                .addOnSuccessListener { Log.w("firestore", "Error deleting document") }
+            .delete()
+            .addOnSuccessListener { Log.d("firestore", "DocumentSnapshot successfully deleted!") }
+            .addOnSuccessListener { Log.w("firestore", "Error deleting document") }
         cartItemList.removeAt(position)
         itemAdapter.notifyDataSetChanged()
         setData()
@@ -127,4 +115,6 @@ class CartActivity : AppCompatActivity(), IItemClickListener {
         itemAdapter.notifyItemChanged(position)
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).update("productAmount", product.productAmount)
     }
+
+
 }

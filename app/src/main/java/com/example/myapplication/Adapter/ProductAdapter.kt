@@ -1,6 +1,5 @@
 package com.example.myapplication.Adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,11 @@ import com.example.myapplication.IItemClickListener
 import com.example.myapplication.Model.ProductModelClass
 import com.example.myapplication.R
 
-class ProductAdapter(private val context: Context, val list: ArrayList<ProductModelClass>,val itemClickListener:IItemClickListener) :
+class ProductAdapter(val list: ArrayList<ProductModelClass>,val itemClickListener:IItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(context)
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_product_layout, parent, false)
 
         return ViewHolder(view)

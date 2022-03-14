@@ -1,51 +1,37 @@
-package com.example.myapplication
+package com.example.myapplication.Fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.Adapter.ProductAdapter
+import com.example.myapplication.IItemClickListener
 import com.example.myapplication.Model.ProductModelClass
-import com.example.myapplication.databinding.ActivityShopBinding
+import com.example.myapplication.R
+import com.example.myapplication.databinding.FragmentShopBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
-
-class ShopActivity : AppCompatActivity(), IItemClickListener {
-
-    private lateinit var binding: ActivityShopBinding
+class ShopFragment : Fragment(R.layout.fragment_shop), IItemClickListener {
+    private lateinit var binding: FragmentShopBinding
     private lateinit var itemAdapter: ProductAdapter
     private lateinit var db: FirebaseFirestore
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityShopBinding.inflate(LayoutInflater.from(this))
-        setContentView(binding.root)
-
-        binding.rvProductList.layoutManager = LinearLayoutManager(this)
-        itemAdapter = ProductAdapter(this, loadData(), this@ShopActivity)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentShopBinding.inflate(inflater, container, false)
+        binding.rvProductList.layoutManager = LinearLayoutManager(context)
+        itemAdapter = ProductAdapter( loadData(), this@ShopFragment)
         binding.rvProductList.adapter = itemAdapter
         db = FirebaseFirestore.getInstance()
-
-        binding.btnLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(this@ShopActivity, LoginActivity::class.java))
-            finish()
-        }
-        binding.btnShop.setOnClickListener {
-            startActivity(Intent(this@ShopActivity, ShopActivity::class.java))
-            finish()
-        }
-        binding.btnShoppingCart.setOnClickListener {
-            startActivity(Intent(this@ShopActivity, CartActivity::class.java))
-            finish()
-        }
-
+        return binding.root
     }
+
+
 
     override fun minus(product: ProductModelClass, position: Int) {
         if (product.productAmount > 0) {
@@ -62,27 +48,27 @@ class ShopActivity : AppCompatActivity(), IItemClickListener {
                     val document = task.result
                     if (document.exists()) {
                         Toast.makeText(
-                                this@ShopActivity,
-                                "product is already in cart :)",
-                                Toast.LENGTH_SHORT
+                            context,
+                            "product is already in cart :)",
+                            Toast.LENGTH_SHORT
                         ).show()
                         db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
-                                .get()
-                                .addOnSuccessListener { result ->
-                                    for (document in result) {
-                                        if (document.data.getValue("productName") == product.productName!!) {
-                                            var i: Int = ((document.data.getValue("productAmount")) as Number).toInt() + product.productAmount
-                                            db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).update("productAmount", i)
-                                        }
+                            .get()
+                            .addOnSuccessListener { result ->
+                                for (document in result) {
+                                    if (document.data.getValue("productName") == product.productName!!) {
+                                        var i: Int = ((document.data.getValue("productAmount")) as Number).toInt() + product.productAmount
+                                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).update("productAmount", i)
                                     }
-
                                 }
+
+                            }
                     } else {
                         db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).set(product)
                         Toast.makeText(
-                                this@ShopActivity,
-                                "${product.productName} have been added to cart.",
-                                Toast.LENGTH_SHORT
+                            context,
+                            "${product.productName} have been added to cart.",
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
                 } else {
@@ -91,9 +77,9 @@ class ShopActivity : AppCompatActivity(), IItemClickListener {
             }
         } else {
             Toast.makeText(
-                    this@ShopActivity,
-                    "You must choose atleast 1kg of ${product.productName} to add it.",
-                    Toast.LENGTH_SHORT
+                context,
+                "You must choose atleast 1kg of ${product.productName} to add it.",
+                Toast.LENGTH_SHORT
             ).show()
         }
     }
