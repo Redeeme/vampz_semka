@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.ShopFragment"
+    tools:context=".shop.ShopFragment"
     android:background="@drawable/ic_stacked_peaks_haikei">
 
     <androidx.recyclerview.widget.RecyclerView

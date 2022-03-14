@@ -1,4 +1,4 @@
-package com.example.myapplication.Adapter
+package com.example.myapplication.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.IItemClickListener
-import com.example.myapplication.Model.ProductModelClass
 import com.example.myapplication.R
+import com.example.myapplication.model.ProductModelClass
+import com.example.myapplication.shop.IItemClickListener
 
-class ProductAdapter(val list: ArrayList<ProductModelClass>,val itemClickListener:IItemClickListener) :
+class ShopAdapter(val list: ArrayList<ProductModelClass>, val itemClickListener: IItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -37,6 +37,9 @@ class ProductAdapter(val list: ArrayList<ProductModelClass>,val itemClickListene
         holder.ivAddToCart.setOnClickListener{
             itemClickListener.cartButton(list[position],position)
         }
+        holder.tvAddtoCart.setOnClickListener {
+            itemClickListener.cartButton(list[position],position)
+        }
     }
     override fun getItemCount(): Int {
         return list.size
@@ -50,5 +53,6 @@ class ProductAdapter(val list: ArrayList<ProductModelClass>,val itemClickListene
         val ivAdd: ImageView = itemView.findViewById(R.id.add)
         val ivSub: ImageView = itemView.findViewById(R.id.sub)
         val ivAddToCart: ImageView = itemView.findViewById(R.id.iv_add_to_cart)
+        val tvAddtoCart: TextView = itemView.findViewById(R.id.tv_add_to_cart)
     }
 }

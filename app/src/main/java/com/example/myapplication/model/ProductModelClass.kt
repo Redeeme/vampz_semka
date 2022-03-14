@@ -1,6 +1,6 @@
-package com.example.myapplication.Model
+package com.example.myapplication.model
 
-class ProductModelClass (
+data class ProductModelClass (
         val productName: String? = "",
         val productOrigin: String? = "",
         val productClass: String? = "",

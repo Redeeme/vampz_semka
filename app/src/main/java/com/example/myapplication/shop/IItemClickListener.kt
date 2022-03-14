@@ -1,6 +1,6 @@
-package com.example.myapplication
+package com.example.myapplication.shop
 
-import com.example.myapplication.Model.ProductModelClass
+import com.example.myapplication.model.ProductModelClass
 
 interface IItemClickListener {
     fun add(product: ProductModelClass, position: Int)

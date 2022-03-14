@@ -1,4 +1,4 @@
-package com.example.myapplication.Adapter
+package com.example.myapplication.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.IItemClickListener
-import com.example.myapplication.Model.ProductModelClass
 import com.example.myapplication.R
+import com.example.myapplication.model.ProductModelClass
+import com.example.myapplication.shop.IItemClickListener
 
-class CartItemAdapter (val list: ArrayList<ProductModelClass>,val itemClickListener: IItemClickListener) :
+class CartAdapter (val list: ArrayList<ProductModelClass>, val itemClickListener: IItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 

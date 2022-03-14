@@ -1,36 +1,44 @@
-package com.example.myapplication.Fragment
+package com.example.myapplication.shop
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Adapter.CartItemAdapter
-import com.example.myapplication.IItemClickListener
-import com.example.myapplication.Model.ProductModelClass
 import com.example.myapplication.R
+import com.example.myapplication.adapter.CartAdapter
+import com.example.myapplication.data.OrderViewModel
 import com.example.myapplication.databinding.FragmentCartBinding
+import com.example.myapplication.model.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class CartFragment : Fragment(R.layout.fragment_cart), IItemClickListener {
     lateinit var binding: FragmentCartBinding
     private lateinit var db: FirebaseFirestore
-    lateinit var itemAdapter: CartItemAdapter
+    lateinit var itemAdapter: CartAdapter
     lateinit var cartItemList: ArrayList<ProductModelClass>
     lateinit var rvProductList: RecyclerView
+    lateinit var mOrderViewModel: OrderViewModel
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
         binding.rvProductList.layoutManager = LinearLayoutManager(context)
         binding.rvProductList.setHasFixedSize(true)
         cartItemList = ArrayList()
-        itemAdapter = CartItemAdapter(cartItemList, this@CartFragment)
+        itemAdapter = CartAdapter(cartItemList, this@CartFragment)
+        mOrderViewModel = ViewModelProvider(this)[OrderViewModel::class.java]
         binding.rvProductList.adapter = itemAdapter
         loadData()
         binding.btnCheckout.setOnClickListener {
@@ -39,7 +47,17 @@ class CartFragment : Fragment(R.layout.fragment_cart), IItemClickListener {
 
         return binding.root
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun checkout() {
+
+        val current = LocalDateTime.now()
+
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val formatted = current.format(formatter)
+
+        //var order = Order(0,FirebaseAuth.getInstance().currentUser!!.uid,formatted,cartItemList)
+
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
             .get()
             .addOnSuccessListener { result ->

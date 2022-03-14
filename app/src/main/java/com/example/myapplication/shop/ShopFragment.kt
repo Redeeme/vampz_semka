@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragment
+package com.example.myapplication.shop
 
 import android.os.Bundle
 import android.util.Log
@@ -8,24 +8,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.Adapter.ProductAdapter
-import com.example.myapplication.IItemClickListener
-import com.example.myapplication.Model.ProductModelClass
 import com.example.myapplication.R
+import com.example.myapplication.adapter.ShopAdapter
 import com.example.myapplication.databinding.FragmentShopBinding
+import com.example.myapplication.model.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ShopFragment : Fragment(R.layout.fragment_shop), IItemClickListener {
     private lateinit var binding: FragmentShopBinding
-    private lateinit var itemAdapter: ProductAdapter
+    private lateinit var itemAdapter: ShopAdapter
     private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentShopBinding.inflate(inflater, container, false)
         binding.rvProductList.layoutManager = LinearLayoutManager(context)
-        itemAdapter = ProductAdapter( loadData(), this@ShopFragment)
+        itemAdapter = ShopAdapter( loadData(), this@ShopFragment)
         binding.rvProductList.adapter = itemAdapter
         db = FirebaseFirestore.getInstance()
         return binding.root
