@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:gravity="center"
-        android:text="Login"
+        android:text="@string/login"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.283"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold">
 
     </TextView>
@@ -30,7 +30,7 @@
         android:id="@+id/til_login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Email"
+        android:hint="@string/enter_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_login">
@@ -47,7 +47,7 @@
         android:id="@+id/til_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Password"
+        android:hint="@string/enter_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_login_email">
@@ -57,14 +57,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            tools:text="123456" />
+            tools:text="123456"
+            tools:ignore="TextFields" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/login"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,16 +86,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Don't have account?"
-            android:textSize="15dp"/>
+            android:text="@string/don_t_have_account"
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/tv_dont_have_register"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="  Register"
+            android:text="@string/register"
             android:textStyle="bold"
-            android:textSize="15dp"/>
+            android:textSize="15sp"/>
     </LinearLayout>
 
 

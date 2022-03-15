@@ -2,4 +2,27 @@
     <string name="app_name">Eshop app</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="don_t_have_account">Don\'t have account?</string>
+    <string name="register">Register</string>
+    <string name="already_have_account">Already have account?</string>
+    <string name="total_price">Total price:</string>
+    <string name="_0">0</string>
+    <string name="total_weight">Total weight:</string>
+    <string name="checkout">checkout</string>
+    <string name="you_are_successfully_logged_in">You are successfully logged in.</string>
+    <string name="logout">Logout</string>
+    <string name="welcome_to_profile">Welcome to profile</string>
+    <string name="jabkla">jabkla</string>
+    <string name="slovakia">slovakia</string>
+    <string name="id">id</string>
+    <string name="date">date</string>
+    <string name="item_count">item_count</string>
+    <string name="price">price</string>
+    <string name="add_to_cart">ADD TO CART</string>
+    <string name="shop">Shop</string>
+    <string name="cart">Cart</string>
+    <string name="profile">Profile</string>
 </resources>

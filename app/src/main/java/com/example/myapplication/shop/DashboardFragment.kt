@@ -17,21 +17,15 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-
-        //binding.tvUserEmail.text = "User ID : $emailId"
-        //binding.tvUserId.text = "User ID : $userId"
-        binding.tvUserEmail.text = "User ID : 123"
-        binding.tvUserId.text = "User ID : 123"
+        binding.tvUserId.text = FirebaseAuth.getInstance().currentUser.toString()
 
         binding.btnLogout.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
-            //startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-            //finish()
 
         }
         Handler().postDelayed({
-            findNavController().navigate(R.id.action_dashboardFragment_to_mainFragment)
-        }, 1000)
+            findNavController().navigate(R.id.action_dashboardFragment_to_shopFragment)
+        }, 2000)
         return binding.root
     }
 }

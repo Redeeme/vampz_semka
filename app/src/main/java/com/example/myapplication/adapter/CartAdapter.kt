@@ -1,5 +1,6 @@
 package com.example.myapplication.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class CartAdapter (val list: ArrayList<ProductModelClass>, val itemClickListener
 
         return ViewHolder(view)
     }
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         val itemsViewModel = list[position]

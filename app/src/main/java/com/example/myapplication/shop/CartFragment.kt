@@ -1,5 +1,6 @@
 package com.example.myapplication.shop
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -9,14 +10,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.adapter.CartAdapter
-import com.example.myapplication.data.Order
-import com.example.myapplication.data.OrderViewModel
 import com.example.myapplication.databinding.FragmentCartBinding
+import com.example.myapplication.model.OrderModelClass
 import com.example.myapplication.model.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
@@ -30,7 +29,6 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
     lateinit var itemAdapter: CartAdapter
     lateinit var cartItemList: ArrayList<ProductModelClass>
     lateinit var rvProductList: RecyclerView
-    lateinit var mOrderViewModel: OrderViewModel
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,7 +37,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
         binding.rvProductList.setHasFixedSize(true)
         cartItemList = ArrayList()
         itemAdapter = CartAdapter(cartItemList, this@CartFragment)
-        mOrderViewModel = ViewModelProvider(this)[OrderViewModel::class.java]
+
         binding.rvProductList.adapter = itemAdapter
         loadData()
         binding.btnCheckout.setOnClickListener {
@@ -51,19 +49,30 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun checkout() {
-
-        val current = LocalDateTime.now()
-
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-        val formatted = current.format(formatter)
         var price = 0.0
         var items = 0
-        for (order in cartItemList){
-            price += order.productPrice!!
-            items++
-        }
-        var order = Order(0,FirebaseAuth.getInstance().currentUser!!.uid,formatted,price,items)//,cartItemList)
-        mOrderViewModel.addOrder(order)
+        for (product in cartItemList){
+
+         price += (product.productPrice!! * product.productAmount)
+         items += product.productAmount
+         }
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val formatted = current.format(formatter)
+
+        var order = OrderModelClass(0,FirebaseAuth.getInstance().currentUser!!.uid,formatted,price.toString(),items.toString())
+        addOrder(order)
+        removeFromDb()
+
+    }
+
+    private fun addOrder(order: OrderModelClass) {
+        db.collection(FirebaseAuth.getInstance().currentUser!!.uid + "+")
+            .add(order)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun removeFromDb() {
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
             .get()
             .addOnSuccessListener { result ->
@@ -83,6 +92,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
         ).show()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setData() {
         var money: Double = 0.0
         var weight: Int = 0
@@ -99,6 +109,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
         db = FirebaseFirestore.getInstance()
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid).addSnapshotListener(object :
             EventListener<QuerySnapshot> {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 if (error != null) {
                     Log.e("Firestore", error.message.toString())
@@ -124,6 +135,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun cartButton(product: ProductModelClass, position: Int) {
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!)
             .delete()

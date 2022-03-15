@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_toEndOf="@id/id_productImage"
-                android:text="jabkla"
+                android:text="@string/jabkla"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000" />
 
@@ -38,7 +38,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@id/id_productImage"
-                android:text="slovakia"
+                android:text="@string/slovakia"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
 
@@ -50,7 +50,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@id/id_productImage"
-                android:text="0"
+                android:text="@string/_0"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
             <ImageView
@@ -65,8 +65,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:text="0"
-                android:textSize="17dp"
+                android:text="@string/_0"
+                android:textSize="17sp"
                 android:layout_toEndOf="@id/sub"
                 android:textStyle="bold"/>
 

@@ -7,6 +7,3 @@ interface IProductClickListener {
     fun minus(product: ProductModelClass, position: Int)
     fun cartButton(product: ProductModelClass, position: Int)
 }
-interface ITransactionClickListener {
-    fun show(products: ArrayList<ProductModelClass>, position: Int)
-}

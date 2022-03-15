@@ -14,9 +14,6 @@
             android:id="@+id/action_cartFragment_to_shopFragment"
             app:destination="@id/shopFragment" />
         <action
-            android:id="@+id/action_cartFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-        <action
             android:id="@+id/action_cartFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
@@ -26,23 +23,8 @@
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
-            android:id="@+id/action_dashboardFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.myapplication.shop.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment_to_shopFragment"
+            android:id="@+id/action_dashboardFragment_to_shopFragment"
             app:destination="@id/shopFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/shopFragment"
@@ -52,9 +34,6 @@
         <action
             android:id="@+id/action_shopFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
-        <action
-            android:id="@+id/action_shopFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
         <action
             android:id="@+id/action_shopFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -69,15 +48,5 @@
         <action
             android:id="@+id/action_profileFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_purchasesFragment"
-            app:destination="@id/purchasesFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/purchasesFragment"
-        android:name="com.example.myapplication.shop.PurchasesFragment"
-        android:label="PurchasesFragment" />
 </navigation>
