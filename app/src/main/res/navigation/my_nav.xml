@@ -24,7 +24,9 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_dashboardFragment_to_shopFragment"
-            app:destination="@id/shopFragment" />
+            app:destination="@id/shopFragment"
+            app:popUpTo="@layout/fragment_shop"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/shopFragment"
@@ -39,7 +41,9 @@
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_shopFragment_to_productDetailFragment"
-            app:destination="@id/productDetailFragment" />
+            app:destination="@id/productDetailFragment"
+            app:popUpTo="@id/shopFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -66,14 +70,5 @@
         <action
             android:id="@+id/action_productDetailFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
-        <action
-            android:id="@+id/action_productDetailFragment_to_shopFragment2"
-            app:destination="@id/shopFragment" />
-        <action
-            android:id="@+id/action_productDetailFragment_to_cartFragment2"
-            app:destination="@id/cartFragment" />
-        <action
-            android:id="@+id/action_productDetailFragment_to_profileFragment2"
-            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

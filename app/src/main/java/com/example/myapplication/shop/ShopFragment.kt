@@ -96,6 +96,7 @@ class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
         "productPrice" to product.productPrice,
         "productAmount" to product.productAmount,
         "productInfo" to product.productInfo)
+
         findNavController().navigate(R.id.action_shopFragment_to_productDetailFragment,bundle)
     }
 

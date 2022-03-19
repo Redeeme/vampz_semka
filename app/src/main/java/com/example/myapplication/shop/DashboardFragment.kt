@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentDashboardBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -24,7 +25,16 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
         }
         Handler().postDelayed({
-            findNavController().navigate(R.id.action_dashboardFragment_to_shopFragment)
+            findNavController().navigate(
+                R.id.action_dashboardFragment_to_shopFragment,    null,
+                navOptions { // Use the Kotlin DSL for building NavOptions
+                    anim {
+                        enter = android.R.animator.fade_in
+                        exit = android.R.animator.fade_out
+                    }
+                }
+            )
+
         }, 2000)
         return binding.root
     }
