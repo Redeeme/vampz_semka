@@ -42,6 +42,9 @@ class ShopAdapter(val list: ArrayList<ProductModelClass>, val itemClickListener:
         holder.tvAddtoCart.setOnClickListener {
             itemClickListener.cartButton(list[position],position)
         }
+        holder.ivProductImage.setOnClickListener {
+            itemClickListener.show(list[position])
+        }
     }
     override fun getItemCount(): Int {
         return list.size

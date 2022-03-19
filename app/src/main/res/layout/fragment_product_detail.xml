@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_stacked_peaks_haikei"
+    tools:context=".shop.DashboardFragment">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/id_productImage"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginStart="65dp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/id_productName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/jabkla"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/id_productOrigin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slovakia"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+
+            <TextView
+                android:id="@+id/id_productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_0"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/separator"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:src="@drawable/column_item" />
+
+            <TextView
+                android:id="@+id/id_productAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_0"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_exposure_plus_1_24" />
+
+            <ImageView
+                android:id="@+id/sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_exposure_neg_1_24" />
+
+            <ImageView
+                android:id="@+id/iv_add_to_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+
+            <TextView
+                android:id="@+id/tv_add_to_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_cart"
+                android:textColor="@color/green"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

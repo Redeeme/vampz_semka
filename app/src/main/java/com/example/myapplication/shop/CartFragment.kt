@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -145,6 +146,13 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
         itemAdapter.notifyDataSetChanged()
         setData()
     }
+
+    override fun show(product: ProductModelClass) {
+        val bundle = bundleOf("product" to product)
+        val fragment = ProductDetailFragment()
+        fragment.arguments = bundle
+    }
+
 
     override fun add(product: ProductModelClass, position: Int) {
         product.productAmount++

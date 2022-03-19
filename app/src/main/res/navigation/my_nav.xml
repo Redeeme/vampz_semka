@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_shopFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_shopFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -47,6 +50,21 @@
             app:destination="@id/shopFragment" />
         <action
             android:id="@+id/action_profileFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.myapplication.shop.ProductDetailFragment"
+        android:label="fragment_product_detail"
+        tools:layout="@layout/fragment_product_detail" >
+        <action
+            android:id="@+id/action_productDetailFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
     </fragment>
 </navigation>

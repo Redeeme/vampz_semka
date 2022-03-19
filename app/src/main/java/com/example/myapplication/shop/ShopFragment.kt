@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.adapter.ShopAdapter
@@ -82,6 +84,17 @@ class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
             ).show()
         }
     }
+
+    override fun show(product: ProductModelClass) {
+        val bundle = bundleOf("productName" to product.productName,
+        "productOrigin" to product.productOrigin,
+        "productClass" to product.productClass,
+        "productImage" to product.productImage,
+        "productPrice" to product.productPrice,
+        "productAmount" to product.productAmount)
+        findNavController().navigate(R.id.action_shopFragment_to_productDetailFragment,bundle)
+    }
+
 
     override fun add(product: ProductModelClass, position: Int) {
         product.productAmount++
