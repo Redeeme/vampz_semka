@@ -66,5 +66,14 @@
         <action
             android:id="@+id/action_productDetailFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_shopFragment2"
+            app:destination="@id/shopFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_cartFragment2"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>
