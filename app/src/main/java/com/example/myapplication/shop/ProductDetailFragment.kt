@@ -1,12 +1,13 @@
 package com.example.myapplication.shop
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.myapplication.databinding.FragmentProductDetailBinding
@@ -16,10 +17,10 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ProductDetailFragment : Fragment() {
-    lateinit var binding: FragmentProductDetailBinding
-    lateinit var product: ProductModelClass
+    private lateinit var binding: FragmentProductDetailBinding
+    private lateinit var product: ProductModelClass
 
-    @SuppressLint("SetTextI18n")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,10 +38,9 @@ class ProductDetailFragment : Fragment() {
         )
         binding.idProductImage.setImageResource(requireArguments().getInt("productImage"))
         binding.idProductName.text = requireArguments().getString("productName")
-        binding.idProductPrice.text = requireArguments().getDouble("productPrice").toString()
-        binding.idProductOrigin.text = requireArguments().getString("productOrigin")
-        binding.productInfo.text = requireArguments().getString("productInfo") + " €/kg"
-
+        binding.idProductPrice.text = requireArguments().getDouble("productPrice").toString()+ " €/kg"
+        binding.idProductOrigin.text = "Origin: " + requireArguments().getString("productOrigin")
+        binding.productInfo.text = requireArguments().getString("productInfo")
 
 
         binding.ivAddToCart.setOnClickListener{
@@ -55,6 +55,7 @@ class ProductDetailFragment : Fragment() {
                 else -> {
                     product.productAmount = binding.etProductAmount.text.toString().toInt()
                     cartButton(product)
+                    view?.hideSoftInput()
                 }
             }
         }
@@ -70,13 +71,15 @@ class ProductDetailFragment : Fragment() {
                 else -> {
                     product.productAmount = binding.etProductAmount.text.toString().toInt()
                     cartButton(product)
+                    view?.hideSoftInput()
                 }
             }
         }
 
         return binding.root
     }
-    fun cartButton(product: ProductModelClass) {
+
+    private fun cartButton(product: ProductModelClass) {
         if (product.productAmount >= 1) {
             val db = FirebaseFirestore.getInstance()
             val docIdRef: DocumentReference = db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!)
@@ -93,15 +96,17 @@ class ProductDetailFragment : Fragment() {
                             .get()
                             .addOnSuccessListener { result ->
                                 for (document in result) {
-                                    if (document.data.getValue("productName") == product.productName!!) {
-                                        var i: Int = ((document.data.getValue("productAmount")) as Number).toInt() + product.productAmount
-                                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).update("productAmount", i)
+                                    if (document.data.getValue("productName") == product.productName) {
+                                        val i: Int = ((document.data.getValue("productAmount")) as Number).toInt() + product.productAmount
+                                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(
+                                            product.productName
+                                        ).update("productAmount", i)
                                     }
                                 }
 
                             }
                     } else {
-                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).set(product)
+                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName).set(product)
                         Toast.makeText(
                             context,
                             "${product.productName} have been added to cart.",
@@ -119,5 +124,10 @@ class ProductDetailFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+    fun View.hideSoftInput() {
+        val inputMethodManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
     }
 }

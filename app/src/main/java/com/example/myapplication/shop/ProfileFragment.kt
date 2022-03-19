@@ -14,6 +14,7 @@ import com.example.myapplication.databinding.FragmentProfileBinding
 import com.example.myapplication.model.OrderModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -36,6 +37,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         db = FirebaseFirestore.getInstance()
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid + "+")
+            .orderBy("date",Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 var i: Int = 1
