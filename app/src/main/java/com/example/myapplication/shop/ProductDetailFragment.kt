@@ -125,7 +125,7 @@ class ProductDetailFragment : Fragment() {
             ).show()
         }
     }
-    fun View.hideSoftInput() {
+    private fun View.hideSoftInput() {
         val inputMethodManager =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(windowToken, 0)

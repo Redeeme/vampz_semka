@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
@@ -17,6 +18,9 @@ import com.example.myapplication.databinding.FragmentShopBinding
 import com.example.myapplication.model.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
     private lateinit var binding: FragmentShopBinding
@@ -29,9 +33,12 @@ class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
         binding.rvProductList.layoutManager = LinearLayoutManager(context)
         db = FirebaseFirestore.getInstance()
         shopItemList = ArrayList()
+        lifecycleScope.launch {
+            loadData()
+        }
         itemAdapter = ShopAdapter(shopItemList,this@ShopFragment)
         binding.rvProductList.adapter = itemAdapter
-        loadData()
+
         return binding.root
     }
 
@@ -107,24 +114,26 @@ class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
     }
 
 
-    private fun loadData() {
-        db.collection("Shop").addSnapshotListener(object :
-            EventListener<QuerySnapshot> {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                if (error != null) {
-                    Log.e("Firestore", error.message.toString())
-                    return
-                }
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        shopItemList.add(dc.document.toObject(ProductModelClass::class.java))
+    private suspend fun loadData() {
+        withContext(Dispatchers.IO) {
+            db.collection("Shop").addSnapshotListener(object :
+                EventListener<QuerySnapshot> {
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.e("Firestore", error.message.toString())
+                        return
                     }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            shopItemList.add(dc.document.toObject(ProductModelClass::class.java))
+                        }
+                    }
+                    shopItemList.sortedBy { product -> product.productClass }
+                    itemAdapter.notifyDataSetChanged()
                 }
-                shopItemList.sortedBy { product -> product.productClass }
-                itemAdapter.notifyDataSetChanged()
-            }
 
-        })
+            })
+        }
 }
 }

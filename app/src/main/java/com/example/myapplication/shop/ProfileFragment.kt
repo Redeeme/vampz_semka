@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -15,6 +16,7 @@ import com.example.myapplication.model.OrderModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.launch
 
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -33,11 +35,22 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.rvOrderList.layoutManager = LinearLayoutManager(context)
         binding.rvOrderList.setHasFixedSize(true)
         orderItemList = ArrayList()
+        db = FirebaseFirestore.getInstance()
+        lifecycleScope.launch {
+            loadData()
+        }
         adapter = ProfileAdapter(orderItemList)
 
-        db = FirebaseFirestore.getInstance()
+
+
+        binding.rvOrderList.adapter = adapter
+
+        return binding.root
+    }
+
+    private suspend fun loadData() {
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid + "+")
-            .orderBy("date",Query.Direction.DESCENDING)
+            .orderBy("date", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 var i: Int = 1
@@ -61,9 +74,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 adapter.notifyDataSetChanged()
 
             }
-        binding.rvOrderList.adapter = adapter
-
-        return binding.root
     }
+
 
 }

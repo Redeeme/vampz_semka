@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -20,6 +21,7 @@ import com.example.myapplication.model.OrderModelClass
 import com.example.myapplication.model.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -37,10 +39,11 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
         binding.rvProductList.layoutManager = LinearLayoutManager(context)
         binding.rvProductList.setHasFixedSize(true)
         cartItemList = ArrayList()
+        lifecycleScope.launch {
+            loadData()
+        }
         itemAdapter = CartAdapter(cartItemList, this@CartFragment)
-
         binding.rvProductList.adapter = itemAdapter
-        loadData()
         binding.btnCheckout.setOnClickListener {
             checkout()
         }
@@ -106,7 +109,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
 
     }
 
-    private fun loadData() {
+    private suspend fun loadData() {
         db = FirebaseFirestore.getInstance()
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid).addSnapshotListener(object :
             EventListener<QuerySnapshot> {
