@@ -1,6 +1,6 @@
 package com.example.myapplication.shop
 
-import android.annotation.SuppressLint
+import android.app.Fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,26 +18,29 @@ import com.example.myapplication.adapter.ShopAdapter
 import com.example.myapplication.databinding.FragmentShopBinding
 import com.example.myapplication.model.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.*
-import kotlinx.coroutines.Dispatchers
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
     private lateinit var binding: FragmentShopBinding
     private lateinit var itemAdapter: ShopAdapter
     private lateinit var db: FirebaseFirestore
-    lateinit var shopItemList: ArrayList<ProductModelClass>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentShopBinding.inflate(inflater, container, false)
         binding.rvProductList.layoutManager = LinearLayoutManager(context)
+
+        val viewModel = ViewModelProvider(this).get(ShopFragmentViewModel::class.java)
+
         db = FirebaseFirestore.getInstance()
-        shopItemList = ArrayList()
+        itemAdapter = ShopAdapter(this@ShopFragment)
         lifecycleScope.launch {
-            loadData()
+            viewModel.loadData()
+            itemAdapter.submit(viewModel.shopItemList)
         }
-        itemAdapter = ShopAdapter(shopItemList,this@ShopFragment)
+
+
         binding.rvProductList.adapter = itemAdapter
 
         return binding.root
@@ -114,26 +118,5 @@ class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
     }
 
 
-    private suspend fun loadData() {
-        withContext(Dispatchers.IO) {
-            db.collection("Shop").addSnapshotListener(object :
-                EventListener<QuerySnapshot> {
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    if (error != null) {
-                        Log.e("Firestore", error.message.toString())
-                        return
-                    }
-                    for (dc: DocumentChange in value?.documentChanges!!) {
-                        if (dc.type == DocumentChange.Type.ADDED) {
-                            shopItemList.add(dc.document.toObject(ProductModelClass::class.java))
-                        }
-                    }
-                    shopItemList.sortedBy { product -> product.productClass }
-                    itemAdapter.notifyDataSetChanged()
-                }
 
-            })
-        }
-}
 }
