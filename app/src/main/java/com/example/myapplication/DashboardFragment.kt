@@ -1,4 +1,4 @@
-package com.example.myapplication.shop
+package com.example.myapplication
 
 import android.os.Bundle
 import android.os.Handler
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
-import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentDashboardBinding
 import com.google.firebase.auth.FirebaseAuth
 

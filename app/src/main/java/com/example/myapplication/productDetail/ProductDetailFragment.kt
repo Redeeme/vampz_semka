@@ -1,4 +1,4 @@
-package com.example.myapplication.shop
+package com.example.myapplication.productDetail
 
 import android.content.Context
 import android.os.Bundle
@@ -11,7 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.myapplication.databinding.FragmentProductDetailBinding
-import com.example.myapplication.model.ProductModelClass
+import com.example.myapplication.product.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore

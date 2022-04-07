@@ -1,4 +1,4 @@
-package com.example.myapplication.shop
+package com.example.myapplication.cart
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -11,14 +11,16 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.IProductClickListener
 import com.example.myapplication.R
-import com.example.myapplication.adapter.CartAdapter
 import com.example.myapplication.databinding.FragmentCartBinding
 import com.example.myapplication.model.OrderModelClass
-import com.example.myapplication.model.ProductModelClass
+import com.example.myapplication.product.ProductModelClass
+import com.example.myapplication.productDetail.ProductDetailFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import kotlinx.coroutines.launch
@@ -32,10 +34,14 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
     lateinit var itemAdapter: CartAdapter
     lateinit var cartItemList: ArrayList<ProductModelClass>
     lateinit var rvProductList: RecyclerView
+    val cartViewModel: CartFragmentViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
+        binding.viewModel = cartViewModel
+
+
         binding.rvProductList.layoutManager = LinearLayoutManager(context)
         binding.rvProductList.setHasFixedSize(true)
         cartItemList = ArrayList()

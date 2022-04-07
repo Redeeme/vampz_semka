@@ -1,4 +1,4 @@
-package com.example.myapplication.shop
+package com.example.myapplication.profile
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.adapter.ProfileAdapter
 import com.example.myapplication.databinding.FragmentProfileBinding
 import com.example.myapplication.model.OrderModelClass
 import com.google.firebase.auth.FirebaseAuth
