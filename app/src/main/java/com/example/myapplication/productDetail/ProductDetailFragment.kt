@@ -1,4 +1,4 @@
-package com.example.myapplication.shop
+package com.example.myapplication.productDetail
 
 import android.content.Context
 import android.os.Bundle

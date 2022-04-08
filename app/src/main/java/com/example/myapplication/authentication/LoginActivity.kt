@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityLoginBinding
-import com.example.myapplication.shop.MainActivity
+import com.example.myapplication.MainActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth

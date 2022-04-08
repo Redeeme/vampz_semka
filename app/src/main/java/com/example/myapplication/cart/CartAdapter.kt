@@ -1,4 +1,4 @@
-package com.example.myapplication.adapter
+package com.example.myapplication.cart
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.model.ProductModelClass
-import com.example.myapplication.shop.IProductClickListener
+import com.example.myapplication.IProductClickListener
 
 class CartAdapter (val list: ArrayList<ProductModelClass>, val itemClickListener: IProductClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

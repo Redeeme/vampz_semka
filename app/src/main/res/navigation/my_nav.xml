@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.myapplication.shop.CartFragment"
+        android:name="com.example.myapplication.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.myapplication.shop.DashboardFragment"
+        android:name="com.example.myapplication.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.myapplication.shop.ProfileFragment"
+        android:name="com.example.myapplication.profile.ProfileFragment"
         android:label="ProfileFragment" >
         <action
             android:id="@+id/action_profileFragment_to_shopFragment"
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.example.myapplication.shop.ProductDetailFragment"
+        android:name="com.example.myapplication.productDetail.ProductDetailFragment"
         android:label="fragment_product_detail"
         tools:layout="@layout/fragment_product_detail" >
         <action

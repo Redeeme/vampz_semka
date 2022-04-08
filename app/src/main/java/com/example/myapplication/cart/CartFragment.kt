@@ -1,4 +1,4 @@
-package com.example.myapplication.shop
+package com.example.myapplication.cart
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -15,10 +15,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.adapter.CartAdapter
 import com.example.myapplication.databinding.FragmentCartBinding
 import com.example.myapplication.model.OrderModelClass
 import com.example.myapplication.model.ProductModelClass
+import com.example.myapplication.IProductClickListener
+import com.example.myapplication.productDetail.ProductDetailFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import kotlinx.coroutines.launch

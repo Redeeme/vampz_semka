@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.IProductClickListener
 import com.example.myapplication.R
-import com.example.myapplication.adapter.ShopAdapter
 import com.example.myapplication.databinding.FragmentShopBinding
 import com.example.myapplication.model.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
