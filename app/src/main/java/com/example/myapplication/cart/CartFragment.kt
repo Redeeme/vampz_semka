@@ -12,7 +12,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.IProductClickListener
@@ -23,14 +22,12 @@ import com.example.myapplication.product.ProductModelClass
 import com.example.myapplication.productDetail.ProductDetailFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
 class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
     lateinit var binding: FragmentCartBinding
-    private lateinit var db: FirebaseFirestore
     lateinit var itemAdapter: CartAdapter
     lateinit var cartItemList: ArrayList<ProductModelClass>
     lateinit var rvProductList: RecyclerView
@@ -45,9 +42,8 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
         binding.rvProductList.layoutManager = LinearLayoutManager(context)
         binding.rvProductList.setHasFixedSize(true)
         cartItemList = ArrayList()
-        lifecycleScope.launch {
-            loadData()
-        }
+        loadData()
+
         itemAdapter = CartAdapter(cartItemList, this@CartFragment)
         binding.rvProductList.adapter = itemAdapter
         binding.btnCheckout.setOnClickListener {
@@ -102,47 +98,8 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
         ).show()
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun setData() {
-        var money: Double = 0.0
-        var weight: Int = 0
-        for (item in cartItemList) {
-            money += (item.productAmount * item.productPrice!!)
-            weight += item.productAmount
-        }
-        binding.tvMoneySum.text = money.toString() + " €"
-        binding.tvWeightSum.text = weight.toString() +" kg"
-
-    }
-
-    private suspend fun loadData() {
-        db = FirebaseFirestore.getInstance()
-        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).addSnapshotListener(object :
-            EventListener<QuerySnapshot> {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                if (error != null) {
-                    Log.e("Firestore", error.message.toString())
-                    return
-                }
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        cartItemList.add(dc.document.toObject(ProductModelClass::class.java))
-                    }
-                }
-                itemAdapter.notifyDataSetChanged()
-                setData()
-            }
-
-        })
-    }
-
     override fun minus(product: ProductModelClass, position: Int) {
-        if (product.productAmount > 0) {
-            product.productAmount--
-            itemAdapter.notifyItemChanged(position)
-            db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).update("productAmount", product.productAmount)
-        }
+        cartViewModel.minus(product,posiz)
     }
 
     @SuppressLint("NotifyDataSetChanged")

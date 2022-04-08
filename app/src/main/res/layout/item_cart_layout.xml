@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout>
+    <data>
+        <variable
+            name="holder"
+            type="com.example.myapplication.cart.CartAdapter" />
+    </data>
 
-    <androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp">
@@ -53,50 +55,52 @@
                 android:text="@string/_0"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
+
             <ImageView
                 android:id="@+id/separator"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
-                android:src="@drawable/column_item"
+                android:layout_marginStart="120dp"
                 android:layout_toEndOf="@id/id_productImage"
-                android:layout_marginStart="120dp" />
+                android:src="@drawable/column_item" />
+
             <TextView
                 android:id="@+id/id_productAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@id/sub"
                 android:text="@string/_0"
                 android:textSize="17sp"
-                android:layout_toEndOf="@id/sub"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_exposure_plus_1_24"
-                android:layout_toEndOf="@id/id_productAmount"/>
+                android:layout_toEndOf="@id/id_productAmount"
+                android:src="@drawable/ic_baseline_exposure_plus_1_24" />
 
             <ImageView
                 android:id="@+id/sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
                 android:layout_marginEnd="20dp"
                 android:layout_toEndOf="@id/separator"
-                android:src="@drawable/ic_baseline_exposure_neg_1_24"
-                android:layout_marginStart="40dp"/>
+                android:src="@drawable/ic_baseline_exposure_neg_1_24" />
+
             <ImageView
                 android:id="@+id/iv_delete_from_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_delete_24"
-                android:layout_toEndOf="@id/separator"
+                android:layout_marginStart="80dp"
                 android:layout_marginTop="70dp"
-                android:layout_marginStart="80dp"/>
+                android:layout_toEndOf="@id/separator"
+                android:src="@drawable/ic_baseline_delete_24" />
 
 
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+</layout>

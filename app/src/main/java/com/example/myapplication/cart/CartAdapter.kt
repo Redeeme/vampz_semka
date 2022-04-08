@@ -2,30 +2,28 @@ package com.example.myapplication.cart
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.IProductClickListener
-import com.example.myapplication.R
+import com.example.myapplication.databinding.ItemCartLayoutBinding
 import com.example.myapplication.product.ProductModelClass
 
 class CartAdapter (val list: ArrayList<ProductModelClass>, val itemClickListener: IProductClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_cart_layout, parent, false)
-
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+    : CartItemViewHolder {
+        return CartItemViewHolder.from(parent)
     }
+
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         val itemsViewModel = list[position]
-        (holder as ViewHolder).tvProductName.text = itemsViewModel.productName
+        (holder as CartItemViewHolder).tvProductName.text = itemsViewModel.productName
         holder.tvProductOrigin.text = itemsViewModel.productOrigin
         holder.ivProductImage.setImageResource(itemsViewModel.productImage)
         holder.tvProductPrice.text = itemsViewModel.productPrice.toString() + " €/kg"
@@ -43,15 +41,26 @@ class CartAdapter (val list: ArrayList<ProductModelClass>, val itemClickListener
     override fun getItemCount(): Int {
         return list.size
     }
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val tvProductName: TextView = itemView.findViewById(R.id.id_productName)
-        val tvProductOrigin: TextView = itemView.findViewById(R.id.id_productOrigin)
-        val ivProductImage: ImageView = itemView.findViewById(R.id.id_productImage)
-        val tvProductPrice: TextView = itemView.findViewById(R.id.id_productPrice)
-        val tvProductAmount: TextView = itemView.findViewById(R.id.id_productAmount)
-        val ivAdd: ImageView = itemView.findViewById(R.id.add)
-        val ivSub: ImageView = itemView.findViewById(R.id.sub)
-        val ivDeleteFromCart: ImageView = itemView.findViewById(R.id.iv_delete_from_cart)
+    class CartItemViewHolder(val binding: ItemCartLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        companion object {
+            fun from(parent: ViewGroup): CartItemViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemCartLayoutBinding.inflate(layoutInflater,
+                    parent, false)
+                return CartItemViewHolder(binding)
+            }
+        }
+
+        val tvProductName: TextView = binding.idProductName
+        val tvProductOrigin: TextView = binding.idProductOrigin
+        val ivProductImage: ImageView = binding.idProductImage
+        val tvProductPrice: TextView = binding.idProductPrice
+        val tvProductAmount: TextView = binding.idProductAmount
+        val ivAdd: ImageView = binding.add
+        val ivSub: ImageView = binding.sub
+        val ivDeleteFromCart: ImageView = binding.ivDeleteFromCart
 
     }
+
 }
