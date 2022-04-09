@@ -27,7 +27,9 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
 
         cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]

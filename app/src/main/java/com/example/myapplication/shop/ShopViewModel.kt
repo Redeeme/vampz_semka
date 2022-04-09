@@ -32,9 +32,10 @@ class ShopViewModel: ViewModel() {
                 }
     }
 
-    fun minus(product: ProductModelClass) {
+    fun minus(product: ProductModelClass,position: Int) {
         if (product.productAmount > 0) {
             product.productAmount--
+            data.value?.get(position)?.productAmount  = product.productAmount
         }
     }
 
@@ -82,8 +83,9 @@ class ShopViewModel: ViewModel() {
         }
     }
 
-    fun add(product: ProductModelClass) {
+    fun add(product: ProductModelClass,position: Int) {
         product.productAmount++
+        data.value?.get(position)?.productAmount  = product.productAmount
     }
 
     fun show(product: ProductModelClass): Bundle {

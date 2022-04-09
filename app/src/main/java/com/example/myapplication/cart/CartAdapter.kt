@@ -11,7 +11,7 @@ import com.example.myapplication.IProductClickListener
 import com.example.myapplication.R
 import com.example.myapplication.product.ProductModelClass
 
-class CartAdapter (val list: ArrayList<ProductModelClass>, val itemClickListener: IProductClickListener) :
+class CartAdapter (private val list: ArrayList<ProductModelClass>, private val itemClickListener: IProductClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 

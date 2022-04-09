@@ -1,9 +1,9 @@
 package com.example.myapplication.model
 
 data class OrderModelClass(
-    val id: Int,
-    val userId: String,
-    val date: String,
-    val price: String,
-    val items: String
+    var id: Int = 0,
+    var userId: String = "",
+    var date: String = "",
+    var price: String = "",
+    var items: String = ""
 )

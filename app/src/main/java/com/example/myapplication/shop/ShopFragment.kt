@@ -1,6 +1,5 @@
 package com.example.myapplication.shop
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,22 +25,22 @@ class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
         shopViewModel = ViewModelProvider(this)[ShopViewModel::class.java]
 
         shopViewModel.data.observe(viewLifecycleOwner) {
-            itemAdapter = ShopAdapter(it, this@ShopFragment)
+            itemAdapter = ShopAdapter(this@ShopFragment)
             binding.rvProductList.layoutManager = LinearLayoutManager(context)
             binding.rvProductList.adapter = itemAdapter
+            itemAdapter.setData(it)
         }
 
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun minus(product: ProductModelClass, position: Int) {
-        shopViewModel.minus(product)
-        itemAdapter.notifyDataSetChanged()
+        shopViewModel.minus(product,position)
+        itemAdapter.notifyItemChanged(position)
     }
     override fun add(product: ProductModelClass, position: Int) {
-        shopViewModel.add(product)
-        itemAdapter.notifyDataSetChanged()
+        shopViewModel.add(product,position)
+        itemAdapter.notifyItemChanged(position)
     }
 
     override fun cartButton(product: ProductModelClass, position: Int) {

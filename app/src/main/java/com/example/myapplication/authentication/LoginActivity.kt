@@ -6,12 +6,9 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.databinding.ActivityLoginBinding
 import com.example.myapplication.MainActivity
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
+import com.example.myapplication.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
@@ -43,36 +40,35 @@ class LoginActivity : AppCompatActivity() {
                     val password: String = binding.etUserPassword.text.toString().trim { it <= ' ' }
 
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(
-                            OnCompleteListener<AuthResult> { task ->
-                                if (task.isSuccessful) {
-                                    val firebaseUser: FirebaseUser = task.result!!.user!!
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                task.result!!.user!!
 
-                                    Toast.makeText(
-                                        this@LoginActivity,
-                                        "You were registered successfully.",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                Toast.makeText(
+                                    this@LoginActivity,
+                                    "You were registered successfully.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
 
-                                    val intent =
-                                        Intent(this@LoginActivity, MainActivity::class.java)
-                                    intent.flags =
-                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                    intent.putExtra(
-                                        "user_id",
-                                        FirebaseAuth.getInstance().currentUser!!.uid
-                                    )
-                                    intent.putExtra("email_id", email)
-                                    startActivity(intent)
-                                    finish()
-                                } else {
-                                    Toast.makeText(
-                                        this@LoginActivity,
-                                        task.exception!!.message.toString(),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            })
+                                val intent =
+                                    Intent(this@LoginActivity, MainActivity::class.java)
+                                intent.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                intent.putExtra(
+                                    "user_id",
+                                    FirebaseAuth.getInstance().currentUser!!.uid
+                                )
+                                intent.putExtra("email_id", email)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                Toast.makeText(
+                                    this@LoginActivity,
+                                    task.exception!!.message.toString(),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
                 }
             }
 

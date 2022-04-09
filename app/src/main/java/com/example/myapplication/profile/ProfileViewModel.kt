@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplication.model.OrderModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -26,7 +25,7 @@ class ProfileViewModel:ViewModel() {
 
     private suspend fun loadData(): List<OrderModelClass> {
         return  db.collection(FirebaseAuth.getInstance().currentUser!!.uid + "+")
-            .orderBy("date", Query.Direction.DESCENDING)
+            //.orderBy("date", Query.Direction.DESCENDING)
             .get().await()
             .documents.mapNotNull {
                 it.toObject(OrderModelClass::class.java)
