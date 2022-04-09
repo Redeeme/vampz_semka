@@ -24,14 +24,14 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.btnLogin.setOnClickListener {
             when {
-                TextUtils.isEmpty(binding.etUserEmail.text.toString().trim() { it <= ' ' }) -> {
+                TextUtils.isEmpty(binding.etUserEmail.text.toString().trim { it <= ' ' }) -> {
                     Toast.makeText(
                         this@LoginActivity,
                         "Please enter email.",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                TextUtils.isEmpty(binding.etUserPassword.text.toString().trim() { it <= ' ' }) -> {
+                TextUtils.isEmpty(binding.etUserPassword.text.toString().trim { it <= ' ' }) -> {
                     Toast.makeText(
                         this@LoginActivity,
                         "Please enter password.",
