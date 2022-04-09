@@ -46,7 +46,7 @@ class ProductDetailFragment : Fragment() {
             binding.productInfo.text = it.productInfo
         }
 
-        binding.ivAddToCart.setOnClickListener{
+        binding.addToCart.setOnClickListener{
             when {
                 TextUtils.isEmpty(binding.etProductAmount.text.toString().trim {
                     it <= ' '

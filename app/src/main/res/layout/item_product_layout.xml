@@ -93,7 +93,7 @@
                 android:src="@drawable/ic_baseline_exposure_neg_1_24" />
 
             <ImageView
-                android:id="@+id/iv_add_to_cart"
+                android:id="@+id/add_to_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
-                android:layout_toEndOf="@id/iv_add_to_cart"
+                android:layout_toEndOf="@id/add_to_cart"
                 android:text="@string/add_to_cart"
                 android:textColor="@color/green"
                 android:textSize="18sp" />

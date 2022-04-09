@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.IProductClickListener
 import com.example.myapplication.R
 import com.example.myapplication.product.ProductModelClass
 
-class CartAdapter (private val list: ArrayList<ProductModelClass>, private val itemClickListener: IProductClickListener) :
+class CartAdapter (private val itemClickListener: IProductClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var list: ArrayList<ProductModelClass> = ArrayList()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -52,6 +54,11 @@ class CartAdapter (private val list: ArrayList<ProductModelClass>, private val i
         val ivAdd: ImageView = itemView.findViewById(R.id.add)
         val ivSub: ImageView = itemView.findViewById(R.id.sub)
         val ivDeleteFromCart: ImageView = itemView.findViewById(R.id.iv_delete_from_cart)
-
+    }
+    fun setData(newList: ArrayList<ProductModelClass>){
+        val diffUtil = CartDiffUtil(list,newList)
+        val diffResult = DiffUtil.calculateDiff(diffUtil)
+        list = newList
+        diffResult.dispatchUpdatesTo(this)
     }
 }

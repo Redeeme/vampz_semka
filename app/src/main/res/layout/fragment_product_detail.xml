@@ -70,7 +70,7 @@
                 android:text="product info" />
 
             <ImageView
-                android:id="@+id/iv_add_to_cart"
+                android:id="@+id/add_to_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/product_info"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/product_info"
                 android:text="@string/add_to_cart"
-                android:layout_toStartOf="@id/iv_add_to_cart"
+                android:layout_toStartOf="@id/add_to_cart"
                 android:textColor="@color/green"
                 android:textSize="18sp" />
 

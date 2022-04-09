@@ -9,12 +9,10 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.myapplication.model.OrderModelClass
 import com.example.myapplication.product.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -38,19 +36,16 @@ class CartViewModel : ViewModel() {
     val _orderSize: LiveData<Int>
         get() = orderSize
 
-    init {
-        viewModelScope.launch {
-            cartData.value = ArrayList(loadData())
-            setData()
-        }
+    suspend fun update() {
+        cartData.value = (
+            ArrayList(db.collection(FirebaseAuth.getInstance().currentUser!!.uid).get().await()
+                .documents.mapNotNull {
+                    it.toObject(ProductModelClass::class.java)
+                })
+        )
+        setData()
     }
 
-    private suspend fun loadData(): List<ProductModelClass> {
-        return db.collection(FirebaseAuth.getInstance().currentUser!!.uid).get().await()
-            .documents.mapNotNull {
-                it.toObject(ProductModelClass::class.java)
-            }
-    }
 
     private fun setData() {
         orderPrice.value = 0.0
@@ -71,6 +66,7 @@ class CartViewModel : ViewModel() {
             product.productAmount--
             db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
                 .document(product.productName!!).update("productAmount", product.productAmount)
+            setData()
         }
     }
 
@@ -78,6 +74,7 @@ class CartViewModel : ViewModel() {
         product.productAmount++
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!)
             .update("productAmount", product.productAmount)
+        setData()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -116,7 +113,6 @@ class CartViewModel : ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun checkout() {
-        setData()
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         val formatted = current.format(formatter)
@@ -130,6 +126,6 @@ class CartViewModel : ViewModel() {
         )
         addOrder(order)
         removeFromDb()
-
+        setData()
     }
 }
