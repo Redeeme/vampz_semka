@@ -3,22 +3,20 @@ package com.example.myapplication.productDetail
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.databinding.FragmentProductDetailBinding
 import com.example.myapplication.product.ProductModelClass
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 
 class ProductDetailFragment : Fragment() {
     private lateinit var binding: FragmentProductDetailBinding
-    private lateinit var product: ProductModelClass
+
+    private lateinit var productDetailViewModel: ProductDetailViewModel
 
 
     override fun onCreateView(
@@ -27,7 +25,10 @@ class ProductDetailFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentProductDetailBinding.inflate(inflater, container, false)
-        product = ProductModelClass(
+
+        productDetailViewModel = ViewModelProvider(this)[ProductDetailViewModel::class.java]
+
+        productDetailViewModel.setProduct(ProductModelClass(
             requireArguments().getString("productName"),
             requireArguments().getString("productOrigin"),
             requireArguments().getString("productClass"),
@@ -35,17 +36,21 @@ class ProductDetailFragment : Fragment() {
             requireArguments().getDouble("productPrice"),
             requireArguments().getInt("productAmount"),
             requireArguments().getString("productInfo")
-        )
-        binding.idProductImage.setImageResource(requireArguments().getInt("productImage"))
-        binding.idProductName.text = requireArguments().getString("productName")
-        binding.idProductPrice.text = requireArguments().getDouble("productPrice").toString()+ " €/kg"
-        binding.idProductOrigin.text = "Origin: " + requireArguments().getString("productOrigin")
-        binding.productInfo.text = requireArguments().getString("productInfo")
+        ))
 
+        productDetailViewModel._productData.observe(viewLifecycleOwner) {
+            binding.idProductImage.setImageResource(it.productImage)
+            binding.idProductName.text = it.productName
+            binding.idProductPrice.text = it.productPrice.toString()
+            binding.idProductOrigin.text = it.productOrigin
+            binding.productInfo.text = it.productInfo
+        }
 
         binding.ivAddToCart.setOnClickListener{
             when {
-                TextUtils.isEmpty(binding.etProductAmount.text.toString().trim() { it <= ' ' }) -> {
+                TextUtils.isEmpty(binding.etProductAmount.text.toString().trim {
+                    it <= ' '
+                }) -> {
                     Toast.makeText(
                         context,
                         "Please enter amount.",
@@ -53,15 +58,17 @@ class ProductDetailFragment : Fragment() {
                     ).show()
                 }
                 else -> {
-                    product.productAmount = binding.etProductAmount.text.toString().toInt()
-                    cartButton(product)
+                    productDetailViewModel.setAmount(binding.etProductAmount.text.toString().toInt())
+                    productDetailViewModel.cartButton(requireContext())
                     view?.hideSoftInput()
                 }
             }
         }
         binding.tvAddToCart.setOnClickListener{
             when {
-                TextUtils.isEmpty(binding.etProductAmount.text.toString().trim() { it <= ' ' }) -> {
+                TextUtils.isEmpty(binding.etProductAmount.text.toString().trim {
+                    it <= ' '
+                }) -> {
                     Toast.makeText(
                         context,
                         "Please enter amount.",
@@ -69,8 +76,8 @@ class ProductDetailFragment : Fragment() {
                     ).show()
                 }
                 else -> {
-                    product.productAmount = binding.etProductAmount.text.toString().toInt()
-                    cartButton(product)
+                    productDetailViewModel.setAmount(binding.etProductAmount.text.toString().toInt())
+                    productDetailViewModel.cartButton(requireContext())
                     view?.hideSoftInput()
                 }
             }
@@ -79,52 +86,6 @@ class ProductDetailFragment : Fragment() {
         return binding.root
     }
 
-    private fun cartButton(product: ProductModelClass) {
-        if (product.productAmount >= 1) {
-            val db = FirebaseFirestore.getInstance()
-            val docIdRef: DocumentReference = db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!)
-            docIdRef.get().addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val document = task.result
-                    if (document.exists()) {
-                        Toast.makeText(
-                            context,
-                            "product is already in cart :)",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
-                            .get()
-                            .addOnSuccessListener { result ->
-                                for (document in result) {
-                                    if (document.data.getValue("productName") == product.productName) {
-                                        val i: Int = ((document.data.getValue("productAmount")) as Number).toInt() + product.productAmount
-                                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(
-                                            product.productName
-                                        ).update("productAmount", i)
-                                    }
-                                }
-
-                            }
-                    } else {
-                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName).set(product)
-                        Toast.makeText(
-                            context,
-                            "${product.productName} have been added to cart.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                } else {
-                    Log.d("firestore", "Failed with: ", task.exception)
-                }
-            }
-        } else {
-            Toast.makeText(
-                context,
-                "You must choose atleast 1kg of ${product.productName} to add it.",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
     private fun View.hideSoftInput() {
         val inputMethodManager =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
