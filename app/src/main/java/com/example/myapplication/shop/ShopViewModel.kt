@@ -87,7 +87,13 @@ class ShopViewModel: ViewModel() {
     }
 
     fun show(product: ProductModelClass): Bundle {
-        return bundleOf("product" to product)
+        return  bundleOf("productName" to product.productName,
+            "productOrigin" to product.productOrigin,
+            "productClass" to product.productClass,
+            "productImage" to product.productImage,
+            "productPrice" to product.productPrice,
+            "productAmount" to product.productAmount,
+            "productInfo" to product.productInfo)
     }
 
 }
