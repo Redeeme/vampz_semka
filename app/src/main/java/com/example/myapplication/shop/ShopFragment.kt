@@ -14,7 +14,7 @@ import com.example.myapplication.databinding.FragmentShopBinding
 import com.example.myapplication.model.ProductModelClass
 
 class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
-
+//
     private lateinit var binding: FragmentShopBinding
     private lateinit var itemAdapter: ShopAdapter
     private lateinit var viewModel: ShopViewModel
