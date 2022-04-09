@@ -1,8 +1,10 @@
 package com.example.myapplication.shop
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class ShopViewModel: ViewModel() {
-    var data: MutableLiveData<List<ProductModelClass>?> = MutableLiveData()
+    var data: MutableLiveData<List<ProductModelClass>> = MutableLiveData()
     var db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     init {
@@ -82,6 +84,10 @@ class ShopViewModel: ViewModel() {
 
     fun add(product: ProductModelClass) {
         product.productAmount++
+    }
+
+    fun show(product: ProductModelClass): Bundle {
+        return bundleOf("product" to product)
     }
 
 }
