@@ -11,7 +11,7 @@ import com.example.myapplication.IProductClickListener
 import com.example.myapplication.R
 import com.example.myapplication.model.ProductModelClass
 
-class ShopAdapter(val list: ArrayList<ProductModelClass>, val itemClickListener: IProductClickListener) :
+class ShopAdapter(val list: List<ProductModelClass>, val itemClickListener: IProductClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

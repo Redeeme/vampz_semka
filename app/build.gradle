@@ -90,6 +90,8 @@ dependencies {
     //Lifecycles
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
 
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1")
+
 
 
 
