@@ -38,4 +38,15 @@ data class ProductModelClass(
         }
         return true
     }
+
+    override fun hashCode(): Int {
+        var result = productName?.hashCode() ?: 0
+        result = 31 * result + (productOrigin?.hashCode() ?: 0)
+        result = 31 * result + (productClass?.hashCode() ?: 0)
+        result = 31 * result + productImage
+        result = 31 * result + (productPrice?.hashCode() ?: 0)
+        result = 31 * result + productAmount
+        result = 31 * result + (productInfo?.hashCode() ?: 0)
+        return result
+    }
 }

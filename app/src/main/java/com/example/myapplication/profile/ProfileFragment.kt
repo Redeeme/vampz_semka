@@ -6,24 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentProfileBinding
-import com.example.myapplication.model.OrderModelClass
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import kotlinx.coroutines.launch
 
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
+
     lateinit var binding: FragmentProfileBinding
+
     lateinit var adapter: ProfileAdapter
-    private lateinit var db: FirebaseFirestore
-    private lateinit var orderItemList: ArrayList<OrderModelClass>
-    lateinit var rvOrderList: RecyclerView
+
+    private lateinit var profileViewModel: ProfileViewModel
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -31,49 +26,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        binding.rvOrderList.layoutManager = LinearLayoutManager(context)
-        binding.rvOrderList.setHasFixedSize(true)
-        orderItemList = ArrayList()
-        db = FirebaseFirestore.getInstance()
-        lifecycleScope.launch {
-            loadData()
+
+        profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+
+        profileViewModel._profileData.observe(viewLifecycleOwner) {
+            adapter = ProfileAdapter(it)
+            binding.rvOrderList.layoutManager = LinearLayoutManager(context)
+            binding.rvOrderList.adapter = adapter
         }
-        adapter = ProfileAdapter(orderItemList)
-
-
-
-        binding.rvOrderList.adapter = adapter
 
         return binding.root
     }
-
-    private suspend fun loadData() {
-        db.collection(FirebaseAuth.getInstance().currentUser!!.uid + "+")
-            .orderBy("date", Query.Direction.DESCENDING)
-            .get()
-            .addOnSuccessListener { result ->
-                var i: Int = 1
-                for (document in result) {
-                    val userId: String = document.data.get("userId") as String
-                    val price: String = document.data.get("price") as String
-                    val size: String = document.data.get("items") as String
-                    val date: String = document.data.get("date") as String
-
-                    orderItemList.add(
-                        OrderModelClass(
-                            i,
-                            userId,
-                            date,
-                            price,
-                            size
-                        )
-                    )
-                    i++
-                }
-                adapter.notifyDataSetChanged()
-
-            }
-    }
-
-
 }

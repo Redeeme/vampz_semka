@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.model.OrderModelClass
 
-class ProfileAdapter (val list: ArrayList<OrderModelClass>) :
+class ProfileAdapter (private val list: ArrayList<OrderModelClass>) :
 RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 

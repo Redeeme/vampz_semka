@@ -6,11 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.model.OrderModelClass
-import com.example.myapplication.model.ProductModelClass
+import com.example.myapplication.product.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
@@ -18,17 +19,28 @@ import kotlinx.coroutines.tasks.await
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class CartViewModel: ViewModel() {
-    var data: MutableLiveData<ArrayList<ProductModelClass>> = MutableLiveData()
+class CartViewModel : ViewModel() {
     var db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    var orderPrice: MutableLiveData<Double> = MutableLiveData()
-    var orderWeight: MutableLiveData<Double> = MutableLiveData()
-    var orderSize: MutableLiveData<Int> = MutableLiveData()
+    private var cartData: MutableLiveData<ArrayList<ProductModelClass>> = MutableLiveData()
+    val _cartData: LiveData<ArrayList<ProductModelClass>>
+        get() = cartData
+
+    private var orderPrice: MutableLiveData<Double> = MutableLiveData()
+    val _orderPrice: LiveData<Double>
+        get() = orderPrice
+
+    private var orderWeight: MutableLiveData<Double> = MutableLiveData()
+    val _orderWeight: LiveData<Double>
+        get() = orderWeight
+
+    private var orderSize: MutableLiveData<Int> = MutableLiveData()
+    val _orderSize: LiveData<Int>
+        get() = orderSize
 
     init {
         viewModelScope.launch {
-            data.value = ArrayList(loadData())
+            cartData.value = ArrayList(loadData())
             setData()
         }
     }
@@ -45,33 +57,36 @@ class CartViewModel: ViewModel() {
         orderWeight.value = 0.0
         var price = 0.0
         var weight = 0.0
-        for (item in data.value!!) {
+        for (item in cartData.value!!) {
             price += (item.productAmount * item.productPrice!!)
             weight += item.productAmount
         }
         orderPrice.value = price
         orderWeight.value = weight
-        orderSize.value = data.value!!.size
+        orderSize.value = cartData.value!!.size
     }
 
     fun minus(product: ProductModelClass) {
         if (product.productAmount > 0) {
             product.productAmount--
-            db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).update("productAmount", product.productAmount)
+            db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
+                .document(product.productName!!).update("productAmount", product.productAmount)
         }
     }
 
     fun add(product: ProductModelClass) {
         product.productAmount++
-        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).update("productAmount", product.productAmount)
+        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!)
+            .update("productAmount", product.productAmount)
     }
+
     @SuppressLint("NotifyDataSetChanged")
-    fun cartButton(product: ProductModelClass,position: Int) {
+    fun cartButton(product: ProductModelClass, position: Int) {
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!)
             .delete()
             .addOnSuccessListener { Log.d("firestore", "DocumentSnapshot successfully deleted!") }
             .addOnSuccessListener { Log.w("firestore", "Error deleting document") }
-        data.value!!.removeAt(position)
+        cartData.value!!.removeAt(position)
         setData()
     }
 
@@ -79,19 +94,21 @@ class CartViewModel: ViewModel() {
         return bundleOf("product" to product)
     }
 
-    fun removeFromDb() {
+    private fun removeFromDb() {
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     var key: String = (document.data.getValue("productName").toString())
-                    db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(key).delete()
+                    db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(key)
+                        .delete()
 
                 }
             }
-        data.value!!.clear()
+        cartData.value!!.clear()
         setData()
     }
+
     private fun addOrder(order: OrderModelClass) {
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid + "+")
             .add(order)
@@ -104,7 +121,13 @@ class CartViewModel: ViewModel() {
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         val formatted = current.format(formatter)
 
-        var order = OrderModelClass(0,FirebaseAuth.getInstance().currentUser!!.uid,formatted,orderPrice.toString(),orderSize.toString())
+        val order = OrderModelClass(
+            0,
+            FirebaseAuth.getInstance().currentUser!!.uid,
+            formatted,
+            orderPrice.toString(),
+            orderSize.toString()
+        )
         addOrder(order)
         removeFromDb()
 
