@@ -118,11 +118,10 @@ class CartViewModel : ViewModel() {
         val formatted = current.format(formatter)
 
         val order = OrderModelClass(
-            0,
             FirebaseAuth.getInstance().currentUser!!.uid,
             formatted,
-            orderPrice.toString(),
-            orderSize.toString()
+            "${orderPrice.value.toString()} €",
+            "${orderSize.value.toString()} items"
         )
         addOrder(order)
         removeFromDb()

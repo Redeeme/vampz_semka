@@ -83,10 +83,9 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
         itemAdapter.notifyItemChanged(position)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun cartButton(product: ProductModelClass, position: Int) {
         cartViewModel.cartButton(product,position)
-        itemAdapter.setData(cartViewModel._cartData.value!!)
+        itemAdapter.notifyItemChanged(position)
     }
 
     override fun show(product: ProductModelClass) {

@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentProfileBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -30,10 +34,17 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
+        lifecycleScope.launch{
+            withContext(Dispatchers.Main){
+                profileViewModel.update()
+            }
+        }
+
         profileViewModel._profileData.observe(viewLifecycleOwner) {
             adapter = ProfileAdapter(it)
             binding.rvOrderList.layoutManager = LinearLayoutManager(context)
             binding.rvOrderList.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
 
         return binding.root
