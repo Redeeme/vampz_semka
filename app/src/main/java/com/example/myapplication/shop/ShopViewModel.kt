@@ -12,12 +12,15 @@ import com.example.myapplication.product.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class ShopViewModel: ViewModel() {
+
+@HiltViewModel
+class ShopViewModel@Inject constructor(private val db: FirebaseFirestore): ViewModel() {
     var data: MutableLiveData<List<ProductModelClass>> = MutableLiveData()
-    var db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     init {
         viewModelScope.launch {

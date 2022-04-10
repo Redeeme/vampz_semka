@@ -5,24 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.IProductClickListener
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentShopBinding
 import com.example.myapplication.product.ProductModelClass
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
 //
     private lateinit var binding: FragmentShopBinding
     private lateinit var itemAdapter: ShopAdapter
-    private lateinit var shopViewModel: ShopViewModel
+    private val shopViewModel by viewModels<ShopViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentShopBinding.inflate(inflater, container, false)
-
-        shopViewModel = ViewModelProvider(this)[ShopViewModel::class.java]
 
         shopViewModel.data.observe(viewLifecycleOwner) {
             itemAdapter = ShopAdapter(this@ShopFragment)

@@ -14,12 +14,14 @@ import com.example.myapplication.model.OrderModelClass
 import com.example.myapplication.product.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
-class CartViewModel : ViewModel() {
-    var db: FirebaseFirestore = FirebaseFirestore.getInstance()
+@HiltViewModel
+class CartViewModel @Inject constructor(private val db: FirebaseFirestore) : ViewModel() {
 
     private var cartData: MutableLiveData<ArrayList<ProductModelClass>> = MutableLiveData()
     val _cartData: LiveData<ArrayList<ProductModelClass>>

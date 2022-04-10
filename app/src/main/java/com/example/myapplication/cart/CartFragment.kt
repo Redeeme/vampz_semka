@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.IProductClickListener
@@ -16,17 +16,18 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentCartBinding
 import com.example.myapplication.product.ProductModelClass
 import com.example.myapplication.productDetail.ProductDetailFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+@AndroidEntryPoint
 class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
     private lateinit var binding: FragmentCartBinding
 
     private lateinit var itemAdapter: CartAdapter
 
-    private lateinit var cartViewModel: CartViewModel
+    private val cartViewModel: CartViewModel by viewModels()
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -34,8 +35,6 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
-
-        cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
 
         lifecycleScope.launch{
             withContext(Dispatchers.Main){
