@@ -21,7 +21,7 @@ class ShopViewModel: ViewModel() {
 
     init {
         viewModelScope.launch {
-            data.value = loadData()
+            data.value = loadData().sortedBy { it.productClass }
         }
     }
 

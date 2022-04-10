@@ -18,12 +18,10 @@ class ProductDetailFragment : Fragment() {
 
     private lateinit var productDetailViewModel: ProductDetailViewModel
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentProductDetailBinding.inflate(inflater, container, false)
 
         productDetailViewModel = ViewModelProvider(this)[ProductDetailViewModel::class.java]
@@ -82,7 +80,6 @@ class ProductDetailFragment : Fragment() {
                 }
             }
         }
-
         return binding.root
     }
 

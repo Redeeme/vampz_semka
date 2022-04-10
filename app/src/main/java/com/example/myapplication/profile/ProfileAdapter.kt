@@ -1,6 +1,5 @@
 package com.example.myapplication.profile
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +24,6 @@ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return ViewHolder(listItemBinding)
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ViewHolder).bind(list[position])
     }
@@ -33,6 +31,4 @@ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int {
         return list.size
     }
-
-
 }

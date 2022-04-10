@@ -9,7 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 
-class ProfileViewModel:ViewModel() {
+class ProfileViewModel : ViewModel() {
     var db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     private var profileData: MutableLiveData<ArrayList<OrderModelClass>> = MutableLiveData()
@@ -18,7 +18,7 @@ class ProfileViewModel:ViewModel() {
 
     suspend fun update() {
         profileData.value = (
-                ArrayList(db.collection(FirebaseAuth.getInstance().currentUser!!.uid + "+")
+                ArrayList(db.collection("${FirebaseAuth.getInstance().currentUser!!.uid}+")
                     .orderBy("date", Query.Direction.DESCENDING).get().await()
                     .documents.mapNotNull {
                         it.toObject(OrderModelClass::class.java)

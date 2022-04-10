@@ -23,7 +23,6 @@ class CartDiffUtil(
         return when {
             oldList[oldItemPosition] != newList[newItemPosition] -> false
             else -> true
-
         }
     }
 }

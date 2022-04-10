@@ -28,7 +28,6 @@ class ShopAdapter(private val itemClickListener: IProductClickListener) :
         return ViewHolder(listItemBinding)
     }
 
-    //TODO data bindings
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ViewHolder).bind(list[position])
 
@@ -56,5 +55,4 @@ class ShopAdapter(private val itemClickListener: IProductClickListener) :
         list = newList
         diffResult.dispatchUpdatesTo(this)
     }
-
 }

@@ -1,9 +1,10 @@
 package com.example.myapplication.cart
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
@@ -32,10 +33,6 @@ class CartViewModel : ViewModel() {
     val _orderWeight: LiveData<Double>
         get() = orderWeight
 
-    private var orderSize: MutableLiveData<Int> = MutableLiveData()
-    val _orderSize: LiveData<Int>
-        get() = orderSize
-
     suspend fun update() {
         cartData.value = (
             ArrayList(db.collection(FirebaseAuth.getInstance().currentUser!!.uid).get().await()
@@ -45,7 +42,6 @@ class CartViewModel : ViewModel() {
         )
         setData()
     }
-
 
     private fun setData() {
         orderPrice.value = 0.0
@@ -58,7 +54,6 @@ class CartViewModel : ViewModel() {
         }
         orderPrice.value = price
         orderWeight.value = weight
-        orderSize.value = cartData.value!!.size
     }
 
     fun minus(product: ProductModelClass) {
@@ -77,7 +72,6 @@ class CartViewModel : ViewModel() {
         setData()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun cartButton(product: ProductModelClass, position: Int) {
         db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!)
             .delete()
@@ -99,11 +93,9 @@ class CartViewModel : ViewModel() {
                     var key: String = (document.data.getValue("productName").toString())
                     db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(key)
                         .delete()
-
                 }
             }
         cartData.value!!.clear()
-        setData()
     }
 
     private fun addOrder(order: OrderModelClass) {
@@ -112,19 +104,32 @@ class CartViewModel : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun checkout() {
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-        val formatted = current.format(formatter)
+    fun checkout(context: Context) {
+        if (cartData.value!!.isNotEmpty()) {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+            val formatted = current.format(formatter)
 
-        val order = OrderModelClass(
-            FirebaseAuth.getInstance().currentUser!!.uid,
-            formatted,
-            "${orderPrice.value.toString()} €",
-            "${orderSize.value.toString()} items"
-        )
-        addOrder(order)
-        removeFromDb()
-        setData()
+            val order = OrderModelClass(
+                FirebaseAuth.getInstance().currentUser!!.uid,
+                formatted,
+                "${orderPrice.value.toString()} €",
+                "${orderWeight.value.toString()} kg"
+            )
+            addOrder(order)
+            removeFromDb()
+            setData()
+            Toast.makeText(
+                context,
+                "Order has been sent.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }else{
+            Toast.makeText(
+                context,
+                "Add items first.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
