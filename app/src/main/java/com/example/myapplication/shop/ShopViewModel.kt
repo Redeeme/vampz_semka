@@ -17,19 +17,12 @@ import kotlinx.coroutines.tasks.await
 
 class ShopViewModel: ViewModel() {
     var data: MutableLiveData<List<ProductModelClass>> = MutableLiveData()
-    var db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val firebaseRepository: FirebaseRepository
 
     init {
         viewModelScope.launch {
-            data.value = loadData().sortedBy { it.productClass }
+            data.value = firebaseRepository..sortedBy { it.productClass }
         }
-    }
-
-     private suspend fun loadData(): List<ProductModelClass> {
-        return db.collection("Shop").get().await()
-                .documents.mapNotNull {
-                    it.toObject(ProductModelClass::class.java)
-                }
     }
 
     fun minus(product: ProductModelClass,position: Int) {
