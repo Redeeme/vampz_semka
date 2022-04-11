@@ -16,7 +16,23 @@
         android:text="@string/welcome_to_profile"
         android:textSize="25sp"
         android:textStyle="bold"/>
+    <Button
+        android:id="@+id/goToCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to currency change"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/purple_700"
+        android:textColor="@color/white"/>
 
+    <Button
+        android:id="@+id/goToBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to background change"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/purple_700"
+        android:textColor="@color/white"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOrderList"
