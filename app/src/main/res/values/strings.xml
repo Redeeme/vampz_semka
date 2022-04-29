@@ -25,4 +25,5 @@
     <string name="shop">Shop</string>
     <string name="cart">Cart</string>
     <string name="profile">Profile</string>
+    <string name="your_orders">Your orders</string>
 </resources>

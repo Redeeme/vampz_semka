@@ -1,4 +1,4 @@
-package com.example.myapplication.profile
+package com.example.myapplication.profile.orders
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ItemOrderLayoutBinding
 import com.example.myapplication.model.OrderModelClass
 
-class ProfileAdapter (private val list: ArrayList<OrderModelClass>) :
+class OrderAdapter (private val list: ArrayList<OrderModelClass>) :
 RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class ViewHolder(val binding: ItemOrderLayoutBinding) : RecyclerView.ViewHolder(binding.root) {

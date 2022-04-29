@@ -25,7 +25,7 @@
         <action
             android:id="@+id/action_dashboardFragment_to_shopFragment"
             app:destination="@id/shopFragment"
-            app:popUpTo="@layout/fragment_shop"
+            app:popUpTo="@layout/fragment_dashboard"
             app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_dashboardFragment_to_profileFragment"
@@ -61,6 +61,21 @@
         <action
             android:id="@+id/action_profileFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_backgroundFragment"
+            app:destination="@id/backgroundFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_profileFragment_to_currencyFragment"
+            app:destination="@id/currencyFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_profileFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -75,6 +90,51 @@
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_productDetailFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/backgroundFragment"
+        android:name="com.example.myapplication.profile.background.BackgroundFragment"
+        android:label="fragment_background"
+        tools:layout="@layout/fragment_background" >
+        <action
+            android:id="@+id/action_backgroundFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
+        <action
+            android:id="@+id/action_backgroundFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_backgroundFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/currencyFragment"
+        android:name="com.example.myapplication.profile.currency.CurrencyFragment"
+        android:label="fragment_currency"
+        tools:layout="@layout/fragment_currency" >
+        <action
+            android:id="@+id/action_currencyFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_currencyFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
+        <action
+            android:id="@+id/action_currencyFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.example.myapplication.profile.orders.OrdersFragment"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_ordersFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
+        <action
+            android:id="@+id/action_ordersFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_ordersFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
     </fragment>
 </navigation>

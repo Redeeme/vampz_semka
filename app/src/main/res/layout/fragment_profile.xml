@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_stacked_peaks_haikei"
     tools:context=".profile.ProfileFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <TextView
         android:id="@+id/tv_dashboard"
@@ -16,12 +17,27 @@
         android:text="@string/welcome_to_profile"
         android:textSize="25sp"
         android:textStyle="bold"/>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvOrderList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/toOrders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="orders"
+        android:backgroundTint="@color/purple_700"
+        android:textColor="@color/white"/>
+    <Button
+        android:id="@+id/toCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="currency"
+        android:backgroundTint="@color/purple_700"
+        android:textColor="@color/white"/>
+    <Button
+        android:id="@+id/toBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="background"
+        android:backgroundTint="@color/purple_700"
+        android:textColor="@color/white"/>
 
 
 </LinearLayout>
