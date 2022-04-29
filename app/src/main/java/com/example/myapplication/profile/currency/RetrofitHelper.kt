@@ -5,11 +5,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitHelper {
 
-    const val baseUrl = "http://api.exchangeratesapi.io"
 
-    fun getInstance(): Retrofit {
-        return Retrofit.Builder().baseUrl(baseUrl)
+    private val retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl("http://api.exchangeratesapi.io")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    val api: CurrencyApiI by lazy {
+        retrofit.create(CurrencyApiI::class.java)
     }
 }

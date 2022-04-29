@@ -7,16 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentCurrencyBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class CurrencyFragment : Fragment(R.layout.fragment_currency) {
 
     lateinit var binding: FragmentCurrencyBinding
 
+    private lateinit var viewModel :CurrencyViewModel
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -26,13 +26,20 @@ class CurrencyFragment : Fragment(R.layout.fragment_currency) {
     ): View? {
         binding = FragmentCurrencyBinding.inflate(inflater, container, false)
 
-        val quotesApi = RetrofitHelper.getInstance().create(CurrencyApiI::class.java)
-        // launching a new coroutine
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = quotesApi.getRates()
-            Log.d("Currencies: ", result.toString())
+        val repository = CurrencyRepository()
+        val currencyViewModelFactory = CurrencyViewModelFactory(repository)
+        viewModel = ViewModelProvider(this,currencyViewModelFactory).get(CurrencyViewModel::class.java)
+        viewModel.getRates()
+        viewModel.ratesXResponse.observe(viewLifecycleOwner, Observer { response ->
+            Log.d("Response",response.base)
+            Log.d("Response",response.date)
+            Log.d("Response",response.rates.toString())
+            Log.d("Response",response.success.toString())
+            Log.d("Response",response.timestamp.toString())
 
-        }
+        })
+
+
         return binding.root
     }
 }
