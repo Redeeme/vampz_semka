@@ -26,4 +26,16 @@
     <string name="cart">Cart</string>
     <string name="profile">Profile</string>
     <string name="your_orders">Your orders</string>
+    <string-array name="currency_codes">
+        <item>AED</item>
+        <item>AFN</item>
+        <item>ALL</item>
+        <item>AMD</item>
+        <item>ANG</item>
+        <item>AOA</item>
+        <item>ARS</item>
+        <item>AUD</item>
+        <item>AWG</item>
+        <item>EUR</item>
+    </string-array>
 </resources>

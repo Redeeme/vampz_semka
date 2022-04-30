@@ -16,7 +16,32 @@
         android:text="currency"
         android:textSize="25sp"
         android:textStyle="bold"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/linear_layout"
+        android:gravity = "center">
 
+        <TextView
+            android:id="@+id/txtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select currency:"
+            android:textSize = "20dp" />
 
-
+        <Spinner
+            android:id="@+id/spToCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/currency_codes"
+            android:padding="15dp" />
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="convert"
+            android:backgroundTint="@color/purple_700"
+            android:textColor="@color/white"/>
+    </LinearLayout>
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.myapplication.profile.currency
+package com.example.myapplication.profile.currency.currencyRequest
 
 import retrofit2.http.GET
 

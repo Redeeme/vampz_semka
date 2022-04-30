@@ -1,27 +1,20 @@
-package com.example.myapplication.profile.currency
+package com.example.myapplication.profile.currency.models
 
-import com.google.gson.annotations.SerializedName
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "rates_table")
 data class Rates(
-    @SerializedName("AED")//
     val AED: Double,
-    @SerializedName("AFN")//
     val AFN: Double,
-    @SerializedName("ALL")//
     val ALL: Double,
-    @SerializedName("AMD")//
     val AMD: Double,
-    @SerializedName("ANG")//
     val ANG: Double,
-    @SerializedName("AOA")//
     val AOA: Double,
-    @SerializedName("ARS")//
     val ARS: Double,
-    @SerializedName("AUD")//
     val AUD: Double,
-    @SerializedName("AWG")//
     val AWG: Double,
-    @SerializedName("AZN")//
+    /*@SerializedName("AZN")//
     val AZN: Double,
     @SerializedName("BAM")//
     val BAM: Double,
@@ -94,10 +87,10 @@ data class Rates(
     @SerializedName("ERN")//
     val ERN: Double,
     @SerializedName("ETP")//
-    val ETB: Double,
-    @SerializedName("EUR")//
-    val EUR: Int,
-   /* @SerializedName("FJD")//
+    val ETB: Double,*/
+    @PrimaryKey
+    val EUR: Int
+    /*@SerializedName("FJD")//
     val FJD: Double,
     @SerializedName("FKP")//
     val FKP: Double,
