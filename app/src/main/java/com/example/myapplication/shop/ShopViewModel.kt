@@ -24,7 +24,9 @@ class ShopViewModel@Inject constructor(private val db: FirebaseFirestore): ViewM
 
     init {
         viewModelScope.launch {
-            data.value = loadData().sortedBy { it.productClass }
+            data.value = loadData().sortedBy {
+                it.productClass
+            }
         }
     }
 

@@ -29,22 +29,18 @@ class CurrencyFragment : Fragment(R.layout.fragment_currency) {
         binding = FragmentCurrencyBinding.inflate(inflater, container, false)
 
         val repository = CurrencyRepository()
-        val currencyViewModelFactory = activity?.application?.let {
+        /*val currencyViewModelFactory = activity?.application?.let {
             CurrencyViewModelFactory(repository, it)
         }
 
         viewModel = (currencyViewModelFactory?.let {
             ViewModelProvider(this, it)
-        }?.get(CurrencyViewModel::class.java) ?: viewModel.getRates()) as CurrencyViewModel
+        }?.get(CurrencyViewModel::class.java) ?: viewModel.getRates()) as CurrencyViewModel*/
+        val currencyViewModelFactory = CurrencyViewModelFactory(repository,activity?.application!!)
 
-        viewModel.ratesXResponse.observe(viewLifecycleOwner, Observer { response ->
-            Log.d("Response",response.base)
-            Log.d("Response",response.date)
-            Log.d("Response",response.rates.toString())
-            Log.d("Response",response.success.toString())
-            Log.d("Response",response.timestamp.toString())
-            viewModel.updateCurrency(response)
-        })
+        viewModel = ViewModelProvider(this,currencyViewModelFactory)[CurrencyViewModel::class.java]
+
+        viewModel.getRates()
 
         binding.submitButton.setOnClickListener{
             Toast.makeText(
@@ -52,6 +48,14 @@ class CurrencyFragment : Fragment(R.layout.fragment_currency) {
                 binding.spToCurrency.selectedItem.toString(),
                 Toast.LENGTH_SHORT
             ).show()
+            viewModel.ratesXResponse.observe(viewLifecycleOwner, Observer { response ->
+                Log.d("Response",response.base)
+                Log.d("Response",response.date)
+                Log.d("Response",response.rates.toString())
+                Log.d("Response",response.success.toString())
+                Log.d("Response",response.timestamp.toString())
+                viewModel.updateCurrency(response)
+            })
         }
 
 
