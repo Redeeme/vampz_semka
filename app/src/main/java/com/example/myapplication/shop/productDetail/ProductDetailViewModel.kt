@@ -1,4 +1,4 @@
-package com.example.myapplication.productDetail
+package com.example.myapplication.shop.productDetail
 
 import android.content.Context
 import android.util.Log
@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.product.ProductModelClass
+import com.example.myapplication.shop.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,7 +17,7 @@ class ProductDetailViewModel : ViewModel() {
     val _productData: LiveData<ProductModelClass>
         get() = productData
 
-    fun setProduct(product:ProductModelClass){
+    fun setProduct(product: ProductModelClass){
         productData.value = product
     }
 

@@ -1,7 +1,7 @@
 package com.example.myapplication.cart
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.myapplication.product.ProductModelClass
+import com.example.myapplication.shop.ProductModelClass
 
 class CartDiffUtil(
     private val oldList: ArrayList<ProductModelClass>,

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="productItem"
-            type="com.example.myapplication.product.ProductModelClass" />
+            type="com.example.myapplication.shop.ProductModelClass" />
     </data>
 
     <androidx.cardview.widget.CardView

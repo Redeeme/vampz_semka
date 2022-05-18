@@ -1,4 +1,4 @@
-package com.example.myapplication.product
+package com.example.myapplication.shop
 
 data class ProductModelClass(
     val productName: String? = "",

@@ -1,4 +1,4 @@
-package com.example.myapplication.model
+package com.example.myapplication.profile.orders
 
 data class OrderModelClass(
     var userId: String = "",

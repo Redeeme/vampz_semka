@@ -1,4 +1,4 @@
-package com.example.myapplication.productDetail
+package com.example.myapplication.shop.productDetail
 
 import android.content.Context
 import android.os.Bundle
@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.databinding.FragmentProductDetailBinding
-import com.example.myapplication.product.ProductModelClass
+import com.example.myapplication.shop.ProductModelClass
 
 class ProductDetailFragment : Fragment() {
     private lateinit var binding: FragmentProductDetailBinding
@@ -26,7 +26,8 @@ class ProductDetailFragment : Fragment() {
 
         productDetailViewModel = ViewModelProvider(this)[ProductDetailViewModel::class.java]
 
-        productDetailViewModel.setProduct(ProductModelClass(
+        productDetailViewModel.setProduct(
+            ProductModelClass(
             requireArguments().getString("productName"),
             requireArguments().getString("productOrigin"),
             requireArguments().getString("productClass"),
@@ -34,7 +35,8 @@ class ProductDetailFragment : Fragment() {
             requireArguments().getDouble("productPrice"),
             requireArguments().getInt("productAmount"),
             requireArguments().getString("productInfo")
-        ))
+        )
+        )
 
         productDetailViewModel._productData.observe(viewLifecycleOwner) {
             binding.idProductImage.setImageResource(it.productImage)

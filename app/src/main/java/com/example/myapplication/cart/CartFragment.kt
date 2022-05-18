@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.IProductClickListener
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentCartBinding
-import com.example.myapplication.product.ProductModelClass
-import com.example.myapplication.productDetail.ProductDetailFragment
+import com.example.myapplication.shop.ProductModelClass
+import com.example.myapplication.shop.productDetail.ProductDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

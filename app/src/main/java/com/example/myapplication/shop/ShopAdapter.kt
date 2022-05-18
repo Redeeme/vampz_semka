@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.IProductClickListener
 import com.example.myapplication.databinding.ItemProductLayoutBinding
-import com.example.myapplication.product.ProductModelClass
 
 class ShopAdapter(private val itemClickListener: IProductClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

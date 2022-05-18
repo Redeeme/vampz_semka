@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ItemOrderLayoutBinding
-import com.example.myapplication.model.OrderModelClass
 
 class OrderAdapter (private val list: ArrayList<OrderModelClass>) :
 RecyclerView.Adapter<RecyclerView.ViewHolder>() {

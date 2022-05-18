@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.IProductClickListener
 import com.example.myapplication.databinding.ItemCartLayoutBinding
-import com.example.myapplication.product.ProductModelClass
+import com.example.myapplication.shop.ProductModelClass
 
 class CartAdapter(private val itemClickListener: IProductClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

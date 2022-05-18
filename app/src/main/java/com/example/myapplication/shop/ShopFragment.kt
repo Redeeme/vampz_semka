@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.IProductClickListener
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentShopBinding
-import com.example.myapplication.product.ProductModelClass
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -50,7 +49,6 @@ class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
             requireContext()
         )
     }
-
     override fun show(product: ProductModelClass) {
         findNavController().navigate(
             R.id.action_shopFragment_to_productDetailFragment,

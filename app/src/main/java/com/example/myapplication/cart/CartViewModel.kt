@@ -10,8 +10,8 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.model.OrderModelClass
-import com.example.myapplication.product.ProductModelClass
+import com.example.myapplication.profile.orders.OrderModelClass
+import com.example.myapplication.shop.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel

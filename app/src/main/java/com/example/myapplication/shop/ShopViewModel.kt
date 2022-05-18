@@ -8,7 +8,6 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.product.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -37,14 +36,14 @@ class ShopViewModel@Inject constructor(private val db: FirebaseFirestore): ViewM
                 }
     }
 
-    fun minus(product: ProductModelClass,position: Int) {
+    fun minus(product: ProductModelClass, position: Int) {
         if (product.productAmount > 0) {
             product.productAmount--
             data.value?.get(position)?.productAmount  = product.productAmount
         }
     }
 
-    fun cartButton(product: ProductModelClass,context: Context) {
+    fun cartButton(product: ProductModelClass, context: Context) {
         if (product.productAmount >= 1) {
             val docIdRef: DocumentReference = db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!)
             docIdRef.get().addOnCompleteListener { task ->
@@ -88,7 +87,7 @@ class ShopViewModel@Inject constructor(private val db: FirebaseFirestore): ViewM
         }
     }
 
-    fun add(product: ProductModelClass,position: Int) {
+    fun add(product: ProductModelClass, position: Int) {
         product.productAmount++
         data.value?.get(position)?.productAmount  = product.productAmount
     }
