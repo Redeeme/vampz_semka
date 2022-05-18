@@ -1,4 +1,4 @@
-package com.example.myapplication.profile.currency.currencyRequest
+package com.example.myapplication.profile.currency.currencyRetrofit
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

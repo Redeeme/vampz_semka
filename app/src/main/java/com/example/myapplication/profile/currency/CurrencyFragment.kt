@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentCurrencyBinding
-import com.example.myapplication.profile.currency.currencyRequest.CurrencyRepository
+import com.example.myapplication.profile.currency.currencyRetrofit.CurrencyRepository
 
 class CurrencyFragment : Fragment(R.layout.fragment_currency) {
 
@@ -29,13 +29,6 @@ class CurrencyFragment : Fragment(R.layout.fragment_currency) {
         binding = FragmentCurrencyBinding.inflate(inflater, container, false)
 
         val repository = CurrencyRepository()
-        /*val currencyViewModelFactory = activity?.application?.let {
-            CurrencyViewModelFactory(repository, it)
-        }
-
-        viewModel = (currencyViewModelFactory?.let {
-            ViewModelProvider(this, it)
-        }?.get(CurrencyViewModel::class.java) ?: viewModel.getRates()) as CurrencyViewModel*/
         val currencyViewModelFactory = CurrencyViewModelFactory(repository,activity?.application!!)
 
         viewModel = ViewModelProvider(this,currencyViewModelFactory)[CurrencyViewModel::class.java]
@@ -48,13 +41,17 @@ class CurrencyFragment : Fragment(R.layout.fragment_currency) {
                 binding.spToCurrency.selectedItem.toString(),
                 Toast.LENGTH_SHORT
             ).show()
+            binding.tvCurrent.text = binding.spToCurrency.selectedItem.toString()
             viewModel.ratesXResponse.observe(viewLifecycleOwner, Observer { response ->
                 Log.d("Response",response.base)
                 Log.d("Response",response.date)
                 Log.d("Response",response.rates.toString())
                 Log.d("Response",response.success.toString())
                 Log.d("Response",response.timestamp.toString())
-                viewModel.updateCurrency(response)
+            })
+            viewModel.readAllDataBase.observe(viewLifecycleOwner, Observer { local ->
+                viewModel.setBase(local)
+                viewModel.updateCurrency()
             })
         }
 

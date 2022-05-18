@@ -1,6 +1,5 @@
-package com.example.myapplication.profile.currency.currencyRequest
+package com.example.myapplication.profile.currency.currencyRetrofit
 
-import androidx.room.Entity
 import com.example.myapplication.profile.currency.models.Rates
 
 data class CurrencyModel(
