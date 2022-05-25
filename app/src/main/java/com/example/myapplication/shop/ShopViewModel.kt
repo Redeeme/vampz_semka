@@ -55,11 +55,13 @@ class ShopViewModel @Inject constructor(
 
                 Log.d("uwu", localRepo.readAllData().get(0).currencyMap.toString())
                 var currencyValue = 0.0
+                Log.d("owo", localRepo.readAllData().get(0).currencyMap.get(base).toString())
                 currencyValue =
-                    if (localRepo.readAllData().get(0).currencyMap.get(base)?.toInt() != 1) {
-                        localRepo.readAllData().get(0).currencyMap.get(base)!!
-                    } else {
+                    if (localRepo.readAllData().get(0).currencyMap.get(base)!! > 0.999999999 &&
+                        localRepo.readAllData().get(0).currencyMap.get(base)!! < 1.000000001 ) {
                         1.0
+                    } else {
+                        localRepo.readAllData().get(0).currencyMap.get(base)!!
                     }
 
                 convertBack()

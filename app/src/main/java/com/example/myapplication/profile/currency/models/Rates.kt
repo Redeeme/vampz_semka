@@ -2,10 +2,11 @@ package com.example.myapplication.profile.currency.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "rates_table")
 data class Rates(
-    val AED: Double,
+    /*val AED: Double,
     val AFN: Double,
     val ALL: Double,
     val AMD: Double,
@@ -14,7 +15,7 @@ data class Rates(
     val ARS: Double,
     val AUD: Double,
     val AWG: Double,
-    /*@SerializedName("AZN")//
+    @SerializedName("AZN")//
     val AZN: Double,
     @SerializedName("BAM")//
     val BAM: Double,
@@ -48,33 +49,25 @@ data class Rates(
     val BYN: Double,
     @SerializedName("BYR")//
     val BYR: Double,
-    @SerializedName("BZD")//
+  */@SerializedName("BZD")//
     val BZD: Double,
-    @SerializedName("CAD")//
     val CAD: Double,
-    @SerializedName("CDF")//
     val CDF: Double,
-    @SerializedName("CHF")//
     val CHF: Double,
-    @SerializedName("CLF")//
     val CLF: Double,
-    @SerializedName("CLP")//
     val CLP: Double,
-    @SerializedName("CNY")//
     val CNY: Double,
-    @SerializedName("COP")//
     val COP: Double,
-    @SerializedName("CRC")//
     val CRC: Double,
-    @SerializedName("CUC")//
+    /*@SerializedName("CUC")//
     val CUC: Double,
     @SerializedName("CUP")
     val CUP: Double,
     @SerializedName("CVE")//
     val CVE: Double,
-    @SerializedName("CZK")//
+    */@SerializedName("CZK")//
     val CZK: Double,
-    @SerializedName("DJF")//
+    /*@SerializedName("DJF")//
     val DJF: Double,
     @SerializedName("DKK")//
     val DKK: Double,
@@ -89,7 +82,7 @@ data class Rates(
     @SerializedName("ETP")//
     val ETB: Double,*/
     @PrimaryKey
-    val EUR: Int
+    val EUR: Double,
     /*@SerializedName("FJD")//
     val FJD: Double,
     @SerializedName("FKP")//
@@ -136,9 +129,9 @@ data class Rates(
     val IRR: Double,
     @SerializedName("ISK")//
     val ISK: Double,
-    @SerializedName("JEP")//
-    val JEP: Double,
-    @SerializedName("JMD")//
+    */@SerializedName("JEP")//
+    val JEP: Double
+    /*@SerializedName("JMD")//
     val JMD: Double,
     @SerializedName("JOD")//
     val JOD: Double,
