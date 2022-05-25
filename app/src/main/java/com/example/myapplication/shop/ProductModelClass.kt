@@ -6,6 +6,7 @@ data class ProductModelClass(
     val productClass: String? = "",
     val productImage: Int = 0,
     val productPrice: Double? = 0.0,
+    var productCurrency: String? = "",
     var productAmount: Int = 0,
     val productInfo: String? = ""
 ) {

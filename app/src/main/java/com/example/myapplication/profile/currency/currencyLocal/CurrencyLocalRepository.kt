@@ -1,10 +1,8 @@
 package com.example.myapplication.profile.currency.currencyLocal
 
-import androidx.lifecycle.LiveData
+import javax.inject.Inject
 
-class CurrencyLocalRepository(private val currencyDao: CurrencyDao) {
-
-    val readAllDataBase: LiveData<CurrencyLocalModel> = currencyDao.readAllDataBase()
+class CurrencyLocalRepository @Inject constructor(private val currencyDao: CurrencyDao) {
 
     suspend fun insertDataBase(currencyLocalModel: CurrencyLocalModel){
         currencyDao.insertBase(currencyLocalModel)
@@ -16,5 +14,9 @@ class CurrencyLocalRepository(private val currencyDao: CurrencyDao) {
 
     suspend fun deleteDataBase(){
         currencyDao.deleteBase()
+    }
+
+    fun readAllData():List<CurrencyLocalModel>{
+        return currencyDao.readAllDataBase()
     }
 }

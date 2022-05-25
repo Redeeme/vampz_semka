@@ -1,19 +1,30 @@
 package com.example.myapplication.profile.currency.currencyRetrofit
 
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
+@Module
+@InstallIn(SingletonComponent::class)
 object RetrofitHelper {
+    private const val BASE_URL = "http://api.exchangeratesapi.io"
 
+    @Singleton
+    @Provides
+    fun provideRetrofit(): Retrofit = Retrofit.Builder()
+        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl(BASE_URL)
+        .build()
 
-    private val retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl("http://api.exchangeratesapi.io")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+    @Singleton
+    @Provides
+    fun provideCurrencyApiI(retrofit: Retrofit): CurrencyApiI = retrofit.create(CurrencyApiI::class.java)
 
-    val api: CurrencyApiI by lazy {
-        retrofit.create(CurrencyApiI::class.java)
-    }
+    @Singleton
+    @Provides
+    fun providesRepository(apiService: CurrencyApiI) = CurrencyRepository(apiService)
 }

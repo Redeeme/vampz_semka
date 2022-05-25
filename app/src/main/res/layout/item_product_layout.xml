@@ -56,6 +56,17 @@
                 android:text="@{productItem.productPrice.toString()}"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/id_productCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/id_productOrigin"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/id_productPrice"
+                android:text="@{productItem.productCurrency.toString()}"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/separator"

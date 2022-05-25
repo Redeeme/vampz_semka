@@ -1,7 +1,5 @@
 package com.example.myapplication.profile.currency.currencyRetrofit
 
-class CurrencyRepository {
-    suspend fun getRates(): CurrencyModel {
-        return RetrofitHelper.api.getRates()
-    }
+class CurrencyRepository(private val currencyApiI: CurrencyApiI) {
+    suspend fun getRates() = currencyApiI.getRates()
 }
