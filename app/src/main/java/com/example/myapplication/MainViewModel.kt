@@ -18,9 +18,9 @@ class MainViewModel@Inject constructor(private val localRepo: CurrencyLocalRepos
 
     private fun insertCurrency(currencyModel: CurrencyModel) {
         viewModelScope.launch(Dispatchers.IO) {
-
-            if (localRepo.readAllData()[0].date != currencyModel.date) {
-                localRepo.deleteDataBase()
+            localRepo.deleteDataBase()
+           // if (localRepo.readAllData()[0].date != currencyModel.date) {
+               // localRepo.deleteDataBase()
                 val mapTypeConverter = MapTypeConverter()
                 localRepo.insertDataBase(
                     CurrencyLocalModel(
@@ -34,10 +34,10 @@ class MainViewModel@Inject constructor(private val localRepo: CurrencyLocalRepos
                 Log.d("delul", localRepo.readAllData()[0].date)
                 Log.d("delulr", currencyModel.date)
 
-            } else {
+          //  } else {
                 Log.d("lul", localRepo.readAllData()[0].date)
                 Log.d("lulr", currencyModel.date)
-            }
+          //  }
         }
     }
 

@@ -35,6 +35,11 @@ class CartViewModel @Inject constructor(private val db: FirebaseFirestore) : Vie
     val _orderWeight: LiveData<Double>
         get() = orderWeight
 
+    private var orderCurrency: MutableLiveData<String> = MutableLiveData()
+    val _orderCurrency: LiveData<String>
+        get() = orderCurrency
+
+
     suspend fun update() {
         cartData.value = (
             ArrayList(db.collection(FirebaseAuth.getInstance().currentUser!!.uid).get().await()
@@ -53,6 +58,7 @@ class CartViewModel @Inject constructor(private val db: FirebaseFirestore) : Vie
         for (item in cartData.value!!) {
             price += (item.productAmount * item.productPrice!!)
             weight += item.productAmount
+            orderCurrency.value = item.productCurrency
         }
         orderPrice.value = price
         orderWeight.value = weight

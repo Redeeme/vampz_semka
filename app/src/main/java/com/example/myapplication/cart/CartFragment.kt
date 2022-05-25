@@ -50,11 +50,14 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
         }
 
         cartViewModel._orderPrice.observe(viewLifecycleOwner){
-            binding.tvMoneySum.text = "$it kg"
+            binding.tvMoneySum.text = it.toString()
         }
 
         cartViewModel._orderWeight.observe(viewLifecycleOwner){
             binding.tvWeightSum.text = "$it kg"
+        }
+        cartViewModel._orderCurrency.observe(viewLifecycleOwner){
+            binding.tvMoneySum.text = ( it)
         }
 
         binding.btnCheckout.setOnClickListener {
