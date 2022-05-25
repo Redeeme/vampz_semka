@@ -16,4 +16,7 @@ interface CurrencyDao {
 
     @Query("SELECT * FROM base_table")
     fun readAllDataBase(): List<CurrencyLocalModel>
+
+    @Query("UPDATE base_table SET base=:base")
+    suspend fun changeBase(base: String)
 }

@@ -9,18 +9,26 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.profile.currency.currencyLocal.CurrencyLocalRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.text.DecimalFormat
+import java.util.*
 import javax.inject.Inject
 
 
 @HiltViewModel
-class ShopViewModel@Inject constructor(private val db: FirebaseFirestore, application: Application) :
-    AndroidViewModel(application)  {
+class ShopViewModel @Inject constructor(
+    private val db: FirebaseFirestore,
+    application: Application,
+    private val localRepo: CurrencyLocalRepository
+) :
+    AndroidViewModel(application) {
     var data: MutableLiveData<List<ProductModelClass>> = MutableLiveData()
 
     init {
@@ -32,11 +40,48 @@ class ShopViewModel@Inject constructor(private val db: FirebaseFirestore, applic
         }
     }
 
-     private suspend fun loadData(): List<ProductModelClass> {
+    private suspend fun loadData(): List<ProductModelClass> {
         return db.collection("Shop").get().await()
-                .documents.mapNotNull {
-                    it.toObject(ProductModelClass::class.java)
+            .documents.mapNotNull {
+                it.toObject(ProductModelClass::class.java)
+            }
+    }
+
+    fun setPrices() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val base = localRepo.readAllData()[0].base.lowercase(Locale.ROOT)
+            if (base != data.value?.get(0)?.productCurrency) {
+
+
+                Log.d("uwu", localRepo.readAllData().get(0).currencyMap.toString())
+                var currencyValue = 0.0
+                currencyValue =
+                    if (localRepo.readAllData().get(0).currencyMap.get(base)?.toInt() != 1) {
+                        localRepo.readAllData().get(0).currencyMap.get(base)!!
+                    } else {
+                        1.0
+                    }
+
+                convertBack()
+                for (product in data.value!!) {
+                    product.productPrice =
+                        DecimalFormat("0.00").format(product.productPrice?.times(currencyValue))
+                            .toDouble()
+                    product.productCurrency = base
                 }
+            }
+        }
+    }
+    private fun convertBack(){
+        val base = data.value?.get(0)?.productCurrency
+        val currencyValue = localRepo.readAllData().get(0).currencyMap.get(base)!!
+
+        for (product in data.value!!) {
+            product.productPrice =
+                DecimalFormat("0.00").format(product.productPrice?.div(currencyValue))
+                    .toDouble()
+            product.productCurrency = base
+        }
     }
     /*private fun loadDataa() {
         val productList: ArrayList<ProductModelClass> = ArrayList()
@@ -78,13 +123,15 @@ class ShopViewModel@Inject constructor(private val db: FirebaseFirestore, applic
     fun minus(product: ProductModelClass, position: Int) {
         if (product.productAmount > 0) {
             product.productAmount--
-            data.value?.get(position)?.productAmount  = product.productAmount
+            data.value?.get(position)?.productAmount = product.productAmount
         }
     }
 
     fun cartButton(product: ProductModelClass, context: Context) {
         if (product.productAmount >= 1) {
-            val docIdRef: DocumentReference = db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!)
+            val docIdRef: DocumentReference =
+                db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
+                    .document(product.productName!!)
             docIdRef.get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val document = task.result
@@ -99,14 +146,18 @@ class ShopViewModel@Inject constructor(private val db: FirebaseFirestore, applic
                             .addOnSuccessListener { result ->
                                 for (document in result) {
                                     if (document.data.getValue("productName") == product.productName!!) {
-                                        var i: Int = ((document.data.getValue("productAmount")) as Number).toInt() + product.productAmount
-                                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).update("productAmount", i)
+                                        var i: Int =
+                                            ((document.data.getValue("productAmount")) as Number).toInt() + product.productAmount
+                                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
+                                            .document(product.productName!!)
+                                            .update("productAmount", i)
                                     }
                                 }
 
                             }
                     } else {
-                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid).document(product.productName!!).set(product)
+                        db.collection(FirebaseAuth.getInstance().currentUser!!.uid)
+                            .document(product.productName!!).set(product)
                         Toast.makeText(
                             context,
                             "${product.productName} have been added to cart.",
@@ -128,17 +179,19 @@ class ShopViewModel@Inject constructor(private val db: FirebaseFirestore, applic
 
     fun add(product: ProductModelClass, position: Int) {
         product.productAmount++
-        data.value?.get(position)?.productAmount  = product.productAmount
+        data.value?.get(position)?.productAmount = product.productAmount
     }
 
     fun show(product: ProductModelClass): Bundle {
-        return  bundleOf("productName" to product.productName,
+        return bundleOf(
+            "productName" to product.productName,
             "productOrigin" to product.productOrigin,
             "productClass" to product.productClass,
             "productImage" to product.productImage,
             "productPrice" to product.productPrice,
             "productAmount" to product.productAmount,
-            "productInfo" to product.productInfo)
+            "productInfo" to product.productInfo
+        )
     }
 
 }

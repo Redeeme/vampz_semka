@@ -34,9 +34,7 @@ class CurrencyFragment : Fragment(R.layout.fragment_currency) {
                 Toast.LENGTH_SHORT
             ).show()
             binding.tvCurrent.text = binding.spToCurrency.selectedItem.toString()
-            /*viewModel.readAllDataBase.observe(viewLifecycleOwner, Observer {
-                viewModel.updateCurrency()
-            })*/
+            viewModel.convert(binding.spToCurrency.selectedItem.toString())
         }
 
 

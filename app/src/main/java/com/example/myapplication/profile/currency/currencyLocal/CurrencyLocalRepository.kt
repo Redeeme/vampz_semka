@@ -15,6 +15,9 @@ class CurrencyLocalRepository @Inject constructor(private val currencyDao: Curre
     suspend fun deleteDataBase(){
         currencyDao.deleteBase()
     }
+    suspend fun changeBase(base:String){
+        currencyDao.changeBase(base)
+    }
 
     fun readAllData():List<CurrencyLocalModel>{
         return currencyDao.readAllDataBase()

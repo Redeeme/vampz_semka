@@ -28,6 +28,7 @@ class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
             itemAdapter = ShopAdapter(this@ShopFragment)
             binding.rvProductList.layoutManager = LinearLayoutManager(context)
             binding.rvProductList.adapter = itemAdapter
+            shopViewModel.setPrices()
             itemAdapter.setData(it)
         }
 
