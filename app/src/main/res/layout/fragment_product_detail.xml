@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_stacked_peaks_haikei"
     tools:context=".DashboardFragment">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -114,6 +113,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberSigned"
                     android:maxLines="1"
+                    android:background="@color/fui_transparent"
                     android:maxLength="3"
                     tools:text="110" />
             </com.google.android.material.textfield.TextInputLayout>

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".shop.ShopFragment"
-    android:background="@drawable/ic_stacked_peaks_haikei">
+    tools:context=".shop.ShopFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProductList"

@@ -15,17 +15,30 @@
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/border_item.xml" value="0.271" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/column_item.xml" value="0.32" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_add_shopping_cart_24.xml" value="0.32" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_delete.xml" value="0.2315" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.32" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_exposure_neg_1.xml" value="0.2315" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_exposure_neg_1_24.xml" value="0.32" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_exposure_plus_1.xml" value="0.2315" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_exposure_plus_1_24.xml" value="0.32" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_home.xml" value="0.465" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_person_outline.xml" value="0.465" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.282" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_shop.xml" value="0.465" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_shop_24.xml" value="0.282" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_baseline_shopping_cart.xml" value="0.465" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_launcher_background.xml" value="0.282" />
-        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/layout-land/fragment_product_detail.xml" value="0.5" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.465" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/ic_stacked_peaks_haikei.xml" value="0.1" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/layered_peaks_haikei.xml" value="0.4315" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/layered_steps_haikei.xml" value="0.4315" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/drawable/layered_waves_haikei.xml" value="0.4315" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/layout-land/fragment_cart.xml" value="0.429042904290429" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/layout-land/fragment_product_detail.xml" value="0.3969631236442516" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/layout/activity_cart.xml" value="0.3171875" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/layout/activity_dashboard.xml" value="0.3171875" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/layout/activity_login.xml" value="0.3171875" />
-        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/layout/activity_main.xml" value="0.3033033033033033" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/layout/activity_register.xml" value="0.4088541666666667" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/layout/activity_shop.xml" value="0.3171875" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/Semestralna_Praca/app/src/main/res/layout/cart_item_layout.xml" value="0.3171875" />

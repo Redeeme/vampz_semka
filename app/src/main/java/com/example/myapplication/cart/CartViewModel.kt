@@ -123,8 +123,9 @@ class CartViewModel @Inject constructor(private val db: FirebaseFirestore) : Vie
             val order = OrderModelClass(
                 FirebaseAuth.getInstance().currentUser!!.uid,
                 formatted,
-                "${orderPrice.value.toString()} €",
-                "${orderWeight.value.toString()} kg"
+                orderPrice.value.toString(),
+                orderCurrency.value.toString(),
+                "${orderWeight.value.toString()} kg",
             )
             addOrder(order)
             removeFromDb()

@@ -22,21 +22,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="orders"
-        android:backgroundTint="@color/purple_700"
         android:textColor="@color/white"/>
     <Button
         android:id="@+id/toCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="currency"
-        android:backgroundTint="@color/purple_700"
         android:textColor="@color/white"/>
     <Button
         android:id="@+id/toBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="background"
-        android:backgroundTint="@color/purple_700"
         android:textColor="@color/white"/>
 
 

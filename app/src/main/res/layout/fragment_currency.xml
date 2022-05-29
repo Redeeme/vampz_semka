@@ -53,8 +53,6 @@
             android:id="@+id/submitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="convert"
-            android:backgroundTint="@color/purple_700"
-            android:textColor="@color/white"/>
+            android:text="convert" />
     </LinearLayout>
 </LinearLayout>
