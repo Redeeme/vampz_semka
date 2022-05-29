@@ -8,19 +8,24 @@ import com.example.myapplication.profile.currency.currencyLocal.CurrencyLocalRep
 import com.example.myapplication.profile.currency.currencyLocal.MapTypeConverter
 import com.example.myapplication.profile.currency.currencyRetrofit.CurrencyModel
 import com.example.myapplication.profile.currency.currencyRetrofit.CurrencyRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel@Inject constructor(private val localRepo: CurrencyLocalRepository, private val retrofit: CurrencyRepository) :ViewModel()  {
+class MainViewModel@Inject constructor(private val localRepo: CurrencyLocalRepository,
+                                       private val retrofit: CurrencyRepository,
+                                       private val firebase: FirebaseFirestore
+) :ViewModel()  {
 
     private fun insertCurrency(currencyModel: CurrencyModel) {
+
         viewModelScope.launch(Dispatchers.IO) {
-            localRepo.deleteDataBase()
-           // if (localRepo.readAllData()[0].date != currencyModel.date) {
-               // localRepo.deleteDataBase()
+            if (localRepo.readAllData()[0].date != currencyModel.date) {
+                localRepo.deleteDataBase()
                 val mapTypeConverter = MapTypeConverter()
                 localRepo.insertDataBase(
                     CurrencyLocalModel(
@@ -31,13 +36,25 @@ class MainViewModel@Inject constructor(private val localRepo: CurrencyLocalRepos
                         mapTypeConverter.RatestoMap(currencyModel.rates)!!
                     )
                 )
+
+                firebase.collection(FirebaseAuth.getInstance().currentUser!!.uid)
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            var key: String = (document.data.getValue("productName").toString())
+                            firebase.collection(FirebaseAuth.getInstance().currentUser!!.uid)
+                                .document(key)
+                                .delete()
+                        }
+                    }
                 Log.d("delul", localRepo.readAllData()[0].date)
                 Log.d("delulr", currencyModel.date)
 
-          //  } else {
+                //  } else {
                 Log.d("lul", localRepo.readAllData()[0].date)
                 Log.d("lulr", currencyModel.date)
-          //  }
+                //  }
+            }
         }
     }
 

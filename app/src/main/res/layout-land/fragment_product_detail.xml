@@ -18,8 +18,8 @@
 
             <ImageView
                 android:id="@+id/id_productImage"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp" />
 
@@ -27,18 +27,19 @@
                 android:id="@+id/id_productName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/id_productImage"
+                android:layout_marginBottom="5dp"
                 android:text="@string/jabkla"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000"
-                android:layout_below= "@id/id_productImage"
-                android:textSize="20dp"
-                android:layout_marginBottom="20dp"/>
+                android:textSize="20dp" />
+
             <TextView
                 android:id="@+id/id_productOrigin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_productName"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="100dp"
                 android:text="@string/slovakia"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
@@ -51,26 +52,28 @@
                 android:text="About product: " />
 
 
-
             <TextView
                 android:id="@+id/id_productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_productImage"
-                android:layout_toEndOf="@id/id_productName"
-                android:text="@string/_0"
-                android:textStyle="bold"
+
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="200dp"/>
+                android:layout_toStartOf="@+id/id_productCurrency"
+
+                android:text="@string/_0"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/id_productCurrency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_productImage"
-                android:layout_toEndOf="@id/id_productPrice"
+                android:layout_alignParentEnd="true"
+
+                android:layout_marginBottom="20dp"
                 android:text="@string/_0"
-                android:textStyle="bold"
-                android:layout_marginBottom="20dp"/>
+                android:textStyle="bold" />
             <TextView
                 android:id="@+id/product_info"
                 android:layout_width="wrap_content"
@@ -83,16 +86,15 @@
                 android:id="@+id/add_to_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/product_info"
-                android:layout_toEndOf="@id/id_productImage"
-                android:src="@drawable/ic_baseline_add_shopping_cart"
-                android:layout_marginBottom="15dp"/>
+                android:layout_below="@id/id_productPrice"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_baseline_add_shopping_cart"/>
 
             <TextView
                 android:id="@+id/tv_add_to_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/product_info"
+                android:layout_below="@id/id_productPrice"
                 android:text="@string/add_to_cart"
                 android:layout_toStartOf="@id/add_to_cart"
                 android:textColor="@color/green"
@@ -103,7 +105,7 @@
                 android:id="@+id/til_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/product_info"
+                android:layout_below="@id/id_productPrice"
                 android:layout_marginTop="-20dp"
                 android:layout_toStartOf="@id/tv_add_to_cart"
                 android:hint="kg">

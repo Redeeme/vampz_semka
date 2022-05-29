@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.tasks.await
+import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -60,7 +61,8 @@ class CartViewModel @Inject constructor(private val db: FirebaseFirestore) : Vie
             weight += item.productAmount
             orderCurrency.value = item.productCurrency
         }
-        orderPrice.value = price
+        orderPrice.value =
+            DecimalFormat("0.00").format(price).toDouble()
         orderWeight.value = weight
     }
 

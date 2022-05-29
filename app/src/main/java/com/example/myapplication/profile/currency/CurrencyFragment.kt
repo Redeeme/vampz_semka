@@ -27,13 +27,17 @@ class CurrencyFragment : Fragment(R.layout.fragment_currency) {
     ): View? {
         binding = FragmentCurrencyBinding.inflate(inflater, container, false)
 
+
+        viewModel._currentCurr.observe(viewLifecycleOwner){
+            binding.tvCurrent.text = it
+        }
+
         binding.submitButton.setOnClickListener{
             Toast.makeText(
                 context,
                 binding.spToCurrency.selectedItem.toString(),
                 Toast.LENGTH_SHORT
             ).show()
-            binding.tvCurrent.text = binding.spToCurrency.selectedItem.toString()
             viewModel.convert(binding.spToCurrency.selectedItem.toString())
         }
 

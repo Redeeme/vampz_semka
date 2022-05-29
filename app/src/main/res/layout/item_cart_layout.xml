@@ -88,7 +88,7 @@
                 android:id="@+id/add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_exposure_plus_1_24"
+                android:src="@drawable/ic_baseline_exposure_plus_1"
                 android:layout_toEndOf="@id/id_productAmount"/>
 
             <ImageView
@@ -97,13 +97,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_toEndOf="@id/separator"
-                android:src="@drawable/ic_baseline_exposure_neg_1_24"
+                android:src="@drawable/ic_baseline_exposure_neg_1"
                 android:layout_marginStart="40dp"/>
             <ImageView
                 android:id="@+id/iv_delete_from_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_delete_24"
+                android:src="@drawable/ic_baseline_delete"
                 android:layout_toEndOf="@id/separator"
                 android:layout_marginTop="70dp"
                 android:layout_marginStart="80dp"/>

@@ -35,7 +35,7 @@ class ProductDetailFragment : Fragment() {
             requireArguments().getDouble("productPrice"),
             requireArguments().getString("productCurrency"),
             requireArguments().getInt("productAmount"),
-            requireArguments().getString("productInfo")
+            requireArguments().getString("productInfo"),
         )
         )
 
@@ -45,6 +45,7 @@ class ProductDetailFragment : Fragment() {
             binding.idProductPrice.text = it.productPrice.toString()
             binding.idProductOrigin.text = it.productOrigin
             binding.productInfo.text = it.productInfo
+            binding.idProductCurrency.text = it.productCurrency
         }
 
         binding.addToCart.setOnClickListener{

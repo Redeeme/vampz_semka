@@ -49,15 +49,14 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
             itemAdapter.setData(it)
         }
 
-        cartViewModel._orderPrice.observe(viewLifecycleOwner){
-            binding.tvMoneySum.text = it.toString()
+        cartViewModel._orderPrice.observe(viewLifecycleOwner){ price->
+            cartViewModel._orderCurrency.observe(viewLifecycleOwner){ currency ->
+                binding.tvMoneySum.text = "$price $currency"
+            }
         }
 
         cartViewModel._orderWeight.observe(viewLifecycleOwner){
             binding.tvWeightSum.text = "$it kg"
-        }
-        cartViewModel._orderCurrency.observe(viewLifecycleOwner){
-            binding.tvMoneySum.text = ( it)
         }
 
         binding.btnCheckout.setOnClickListener {
@@ -81,7 +80,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
 
     override fun cartButton(product: ProductModelClass, position: Int) {
         cartViewModel.cartButton(product,position)
-        itemAdapter.notifyItemChanged(position)
+        itemAdapter.notifyDataSetChanged()
     }
 
     override fun show(product: ProductModelClass) {
