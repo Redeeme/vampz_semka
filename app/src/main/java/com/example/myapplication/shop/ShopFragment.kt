@@ -21,10 +21,20 @@ class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
     private lateinit var binding: FragmentShopBinding
     private lateinit var itemAdapter: ShopAdapter
     private val shopViewModel by viewModels<ShopViewModel>()
-    private var list: List<ProductModelClass> = emptyList()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentShopBinding.inflate(inflater, container, false)
+
+        itemAdapter = ShopAdapter(this@ShopFragment)
+
+        shopViewModel.data.observe(viewLifecycleOwner) {
+            binding.rvProductList.layoutManager = LinearLayoutManager(context)
+            binding.rvProductList.adapter = itemAdapter
+            shopViewModel.setPrices()
+            itemAdapter.setData(it)
+
+        }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -32,33 +42,12 @@ class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                filterList(newText)
+                itemAdapter.setData(shopViewModel.filter(newText))
                 return true
             }
         })
-        shopViewModel.data.observe(viewLifecycleOwner) {
-            itemAdapter = ShopAdapter(this@ShopFragment)
-            binding.rvProductList.layoutManager = LinearLayoutManager(context)
-            binding.rvProductList.adapter = itemAdapter
-            shopViewModel.setPrices()
-            itemAdapter.setData(it)
-            list=it
-        }
 
         return binding.root
-    }
-
-    private fun filterList(newText: String?) {
-        val filteredList = ArrayList<ProductModelClass>()
-        for (product in list)
-            if (newText != null) {
-                if (product.productName?.lowercase()?.contains(newText.lowercase()) == true){
-                    filteredList.add(product)
-                }
-            }
-        if (filteredList.isNotEmpty()){
-            itemAdapter.setData(filteredList)
-        }
     }
 
     override fun minus(product: ProductModelClass, position: Int) {

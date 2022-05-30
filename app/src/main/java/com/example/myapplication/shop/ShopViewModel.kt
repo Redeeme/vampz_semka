@@ -457,4 +457,15 @@ class ShopViewModel @Inject constructor(
         }
     }
 
+    fun filter(newText: String?): List<ProductModelClass> {
+        val filteredList = ArrayList<ProductModelClass>()
+        for (product in data.value!!)
+            if (newText != null) {
+                if (product.productName?.lowercase()?.contains(newText.lowercase()) == true){
+                    filteredList.add(product)
+                }
+            }
+        return filteredList
+    }
+
 }
