@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentProfileBinding
-import dagger.hilt.android.AndroidEntryPoint
 
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -32,11 +31,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.toCurrency.setOnClickListener{
             findNavController().navigate(
                 R.id.action_profileFragment_to_currencyFragment
-            )
-        }
-        binding.toBackground.setOnClickListener{
-            findNavController().navigate(
-                R.id.action_profileFragment_to_backgroundFragment
             )
         }
 

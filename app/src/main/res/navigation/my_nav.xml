@@ -93,21 +93,6 @@
             app:destination="@id/cartFragment" />
     </fragment>
     <fragment
-        android:id="@+id/backgroundFragment"
-        android:name="com.example.myapplication.profile.background.BackgroundFragment"
-        android:label="fragment_background"
-        tools:layout="@layout/fragment_background" >
-        <action
-            android:id="@+id/action_backgroundFragment_to_shopFragment"
-            app:destination="@id/shopFragment" />
-        <action
-            android:id="@+id/action_backgroundFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
-        <action
-            android:id="@+id/action_backgroundFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/currencyFragment"
         android:name="com.example.myapplication.profile.currency.CurrencyFragment"
         android:label="fragment_currency"
