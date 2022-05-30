@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_stacked_peaks_haikei"
-    tools:context=".profile.currency.CurrencyFragment"
+tools:context=".profile.currency.CurrencyFragment"
     android:orientation="vertical">
 
     <TextView

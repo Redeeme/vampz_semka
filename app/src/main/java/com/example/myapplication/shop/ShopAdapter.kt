@@ -31,16 +31,35 @@ class ShopAdapter(private val itemClickListener: IProductClickListener) :
         (holder as ViewHolder).bind(list[position])
 
         holder.binding.sub.setOnClickListener{
-            itemClickListener.minus(list[position],position)
+
+            if (itemCount == 1 && position > 0){
+                itemClickListener.minus(list[0],0)
+            }else{
+                itemClickListener.minus(list[position],position)
+            }
         }
         holder.binding.add.setOnClickListener{
-            itemClickListener.add(list[position],position)
+            if (itemCount == 1 && position > 0){
+                itemClickListener.add(list[0],0)
+            }else{
+                itemClickListener.add(list[position],position)
+            }
         }
         holder.binding.idProductImage.setOnClickListener{
-            itemClickListener.show(list[position])
+
+            if (itemCount == 1 && position > 0){
+                itemClickListener.show(list[0])
+            }else{
+                itemClickListener.show(list[position])
+            }
         }
         holder.binding.tvAddToCart.setOnClickListener {
-            itemClickListener.cartButton(list[position],position)
+
+            if (itemCount == 1 && position > 0){
+                itemClickListener.cartButton(list[0],0)
+            }else{
+                itemClickListener.cartButton(list[position],position)
+            }
         }
 
     }

@@ -4,11 +4,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
-        <item name="colorPrimary">@color/green_700</item>
-        <item name="colorPrimaryDark">@color/green_500</item>
-        <item name="colorAccent">@color/green_200</item>
-        <item name="android:windowBackground">@drawable/ic_stacked_peaks_haikei</item>
-        <item name="android:actionMenuTextAppearance">@color/green_700</item>
+        <item name="colorPrimary">@color/red_700</item>
+        <item name="colorPrimaryDark">@color/red_500</item>
+        <item name="colorAccent">@color/red_200</item>
+        <item name="android:windowBackground">@drawable/layered_peaks_haikei</item>
+        <item name="android:actionMenuTextAppearance">@color/red_700</item>
 
     </style>
 
