@@ -15,7 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
+/*
+prepojenie adaptera a viewmodela objednavok
+*/
 @AndroidEntryPoint
 class OrdersFragment : Fragment(R.layout.fragment_orders) {
 

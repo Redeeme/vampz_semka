@@ -21,6 +21,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/*
+zobrazovanie fragmentu kosika a nacitanie dat do layoutu cez view model
+*/
+
 @AndroidEntryPoint
 class CartFragment : Fragment(R.layout.fragment_cart), IProductClickListener {
     private lateinit var binding: FragmentCartBinding

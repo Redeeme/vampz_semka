@@ -7,7 +7,9 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
-
+/*
+Sluzi na vytvorenie singleton Retrofit API
+*/
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitHelper {

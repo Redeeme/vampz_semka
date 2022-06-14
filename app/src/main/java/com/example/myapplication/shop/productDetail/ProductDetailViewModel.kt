@@ -10,7 +10,9 @@ import com.example.myapplication.shop.ProductModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-
+/*
+logika presunu produktu do kosika
+*/
 class ProductDetailViewModel : ViewModel() {
 
     private var productData: MutableLiveData<ProductModelClass> = MutableLiveData()

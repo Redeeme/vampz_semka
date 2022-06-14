@@ -12,6 +12,9 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
+    /*
+    sluzi na overenie uzivatela a prihlasovanie
+    */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(LayoutInflater.from(this))

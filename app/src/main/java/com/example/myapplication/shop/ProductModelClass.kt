@@ -1,5 +1,8 @@
 package com.example.myapplication.shop
 
+/*
+Model trieda pre product v celom projekte
+*/
 data class ProductModelClass(
     val productName: String? = "",
     val productOrigin: String? = "",

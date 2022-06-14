@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentProfileBinding
 
-
+/*
+sluzi len na navigaciu do bud volenia meny alebo zobrazenie objednavok
+*/
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     lateinit var binding: FragmentProfileBinding

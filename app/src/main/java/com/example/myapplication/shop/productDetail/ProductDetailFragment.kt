@@ -13,6 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.databinding.FragmentProductDetailBinding
 import com.example.myapplication.shop.ProductModelClass
 
+/*
+sluzi na zobrazovanie detailu urciteho produktu
+*/
 class ProductDetailFragment : Fragment() {
     private lateinit var binding: FragmentProductDetailBinding
 

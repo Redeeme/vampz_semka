@@ -9,7 +9,9 @@ import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
-
+/*
+nacitavanie dat z databazy firebase
+*/
 @HiltViewModel
 class OrdersViewModel@Inject constructor(private val db: FirebaseFirestore) : ViewModel() {
 

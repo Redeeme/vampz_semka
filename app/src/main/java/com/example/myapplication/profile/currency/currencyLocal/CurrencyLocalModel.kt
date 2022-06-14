@@ -9,7 +9,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 
 
 
-
+/*
+Model tabulky vktora sa da Room databazy
+*/
 @Entity(tableName = "base_table")
 data class CurrencyLocalModel(
     val success: Boolean,
@@ -20,7 +22,9 @@ data class CurrencyLocalModel(
     @TypeConverters(MapTypeConverter::class)
     val currencyMap: Map<String,Double>
 )
-
+/*
+Type convertory pre ukladanie Objektov do Room databazy
+*/
 class MapTypeConverter{
     @TypeConverter
     fun JsontoMap(json: String): MutableMap<String, Double>? {

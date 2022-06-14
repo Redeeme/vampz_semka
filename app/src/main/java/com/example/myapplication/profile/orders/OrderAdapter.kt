@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ItemOrderLayoutBinding
-
+/*
+adapter pri objednavok uzivatela
+*/
 class OrderAdapter (private val list: ArrayList<OrderModelClass>) :
 RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

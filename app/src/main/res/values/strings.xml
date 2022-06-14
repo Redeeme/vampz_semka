@@ -25,6 +25,21 @@
     <string name="cart">Cart</string>
     <string name="profile">Profile</string>
     <string name="your_orders">Your orders</string>
+    <string name="currency">currency</string>
+    <string name="orders">orders</string>
+    <string name="currency1">currency</string>
+    <string name="current_currency">Current currency:</string>
+    <string name="eur">EUR</string>
+    <string name="select_currency">Select currency:</string>
+    <string name="convert">convert</string>
+    <string name="todo">TODO</string>
+    <string name="about_product">About product:</string>
+    <string name="product_info">product info</string>
+    <string name="kg">kg</string>
+    <string name="about_product1">About product:</string>
+    <string name="product_info1">product info</string>
+    <string name="kg1">kg</string>
+    <string name="todo1">TODO</string>
     <string-array name="currency_codes">
         <item>BZD</item>
         <item>CAD</item>

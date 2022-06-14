@@ -20,20 +20,13 @@
         android:id="@+id/toOrders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="orders"
+        android:text="@string/orders"
         android:textColor="@color/white"/>
     <Button
         android:id="@+id/toCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="currency"
+        android:text="@string/currency"
         android:textColor="@color/white"/>
-    <Button
-        android:id="@+id/toBackground"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="background"
-        android:textColor="@color/white"/>
-
 
 </LinearLayout>

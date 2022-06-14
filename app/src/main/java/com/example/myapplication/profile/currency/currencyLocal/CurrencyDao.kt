@@ -1,7 +1,9 @@
 package com.example.myapplication.profile.currency.currencyLocal
 
 import androidx.room.*
-
+/*
+sluzi na vytvorenie sql metod Room databazy
+*/
 @Dao
 interface CurrencyDao {
 

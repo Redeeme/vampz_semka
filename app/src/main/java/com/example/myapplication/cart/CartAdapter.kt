@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.IProductClickListener
 import com.example.myapplication.databinding.ItemCartLayoutBinding
 import com.example.myapplication.shop.ProductModelClass
-
+/*
+adapter pri zobrazovani obshaju kosika
+*/
 class CartAdapter(private val itemClickListener: IProductClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

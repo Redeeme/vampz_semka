@@ -7,6 +7,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/*
+sluzi na vytvorenie singleton databazy firebase
+*/
+
 @Module
 @InstallIn(SingletonComponent::class)
 class RepositoryModule {

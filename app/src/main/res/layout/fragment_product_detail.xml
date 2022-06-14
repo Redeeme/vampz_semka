@@ -20,7 +20,8 @@
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="20dp"
+                android:contentDescription="@string/todo" />
 
             <TextView
                 android:id="@+id/id_productName"
@@ -30,7 +31,7 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000"
                 android:layout_below= "@id/id_productImage"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:layout_marginBottom="20dp"/>
             <TextView
                 android:id="@+id/id_productOrigin"
@@ -47,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/id_productOrigin"
                 android:layout_marginBottom="20dp"
-                android:text="About product: " />
+                android:text="@string/about_product" />
 
 
 
@@ -76,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/about"
                 android:layout_marginBottom="40dp"
-                android:text="product info" />
+                android:text="@string/product_info" />
 
             <ImageView
                 android:id="@+id/add_to_cart"
@@ -105,7 +106,7 @@
                 android:layout_below="@id/product_info"
                 android:layout_marginTop="-20dp"
                 android:layout_toStartOf="@id/tv_add_to_cart"
-                android:hint="kg">
+                android:hint="@string/kg">
 
                 <EditText
                     android:id="@+id/et_product_amount"

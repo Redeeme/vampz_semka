@@ -2,6 +2,10 @@ package com.example.myapplication.profile.currency.currencyLocal
 
 import javax.inject.Inject
 
+
+/*
+Sluzi na prepojenie dao
+*/
 class CurrencyLocalRepository @Inject constructor(private val currencyDao: CurrencyDao) {
 
     suspend fun insertDataBase(currencyLocalModel: CurrencyLocalModel){

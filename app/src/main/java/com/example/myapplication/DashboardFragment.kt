@@ -10,6 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.example.myapplication.databinding.FragmentDashboardBinding
 import com.google.firebase.auth.FirebaseAuth
+/*
+sluzi ako uvodny screen po prihlaseni
+*/
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     lateinit var binding: FragmentDashboardBinding
@@ -34,7 +37,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                 }
             )
 
-        }, 2000)
+        }, 500)
         return binding.root
     }
 }

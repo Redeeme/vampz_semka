@@ -8,6 +8,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
+/*
+sluzi pre navigaciu v celej aplikacii
+*/
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

@@ -14,6 +14,9 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentShopBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+/*
+prepojenie adaptera a viewmodela v hlavnej ponuke
+*/
 
 @AndroidEntryPoint
 class ShopFragment : Fragment(R.layout.fragment_shop), IProductClickListener {

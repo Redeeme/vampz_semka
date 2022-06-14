@@ -1,6 +1,9 @@
 package com.example.myapplication.shop
 
 import androidx.recyclerview.widget.DiffUtil
+/*
+sluzi na zmenu itemov v adaptery
+*/
 
 class ShopDiffUtil(
     private val oldList: List<ProductModelClass>,

@@ -22,6 +22,9 @@ import java.text.DecimalFormat
 import java.util.*
 import javax.inject.Inject
 
+/*
+logika pre nacitanie dat do hlavnej ponuky, zmena mien a moznost vkladania produktov do kosika
+*/
 
 @HiltViewModel
 class ShopViewModel @Inject constructor(

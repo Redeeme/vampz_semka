@@ -12,6 +12,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+/*
+sluzi na nacitavanie dat z databazy a uchovavanie pomocou livedata
+*/
 
 @HiltViewModel
 class CurrencyViewModel @Inject constructor(private val localRepo: CurrencyLocalRepository,

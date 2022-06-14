@@ -20,6 +20,9 @@ import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+/*
+sluzi na nacitavanie dat z databazy a uchovavanie pomocou livedata
+*/
 
 @HiltViewModel
 class CartViewModel @Inject constructor(private val db: FirebaseFirestore) : ViewModel() {

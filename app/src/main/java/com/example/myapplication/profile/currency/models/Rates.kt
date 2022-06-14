@@ -4,6 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+/*
+Model mien kurzov citanych z jsonu
+*/
 @Entity(tableName = "rates_table")
 data class Rates(
     /*val AED: Double,

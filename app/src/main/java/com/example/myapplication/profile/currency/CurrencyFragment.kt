@@ -11,6 +11,9 @@ import androidx.fragment.app.viewModels
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentCurrencyBinding
 import dagger.hilt.android.AndroidEntryPoint
+/*
+zobrazovanie fragmentu mien a moznost volby
+*/
 
 @AndroidEntryPoint
 class CurrencyFragment : Fragment(R.layout.fragment_currency) {
